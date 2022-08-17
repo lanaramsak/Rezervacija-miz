@@ -10,42 +10,29 @@ class Stanje:
         self.rezervacije = sorted(rezervacije)
         self.lokacije = lokacije
 
-    def izracun_prostih_stolov(self):
-        return sum([miza.stevilo_oseb for miza in self.mize if miza.zasedenost == False])
-
-    def izracun_vseh_stolov(self):
-        return sum([miza.stevilo_oseb for miza in self.mize])
-
     def dodaj_rezervacijo(self, rezervacija):
         datum = rezervacija.datum
-
-        if self.izracun_prostih_stolov + rezervacija.stevilo_oseb > self.izracun_vseh_stolov:
-            return False
-        
-        self.rezervacije.append((rezervacija.datum, rezervacija.ura, rezervacija))
-
-    def obstaja_prazna_miza(self, datum, lokacija):
-        for miza in self.mize[lokacija]:
-            pass
+        for miza in sorted(self.mize[rezervacija.lokacija]):
+            if rezervacija.stevilo_oseb <= miza.stevilo_oseb:
+                nov_seznam_ur = miza.rezerviranost + [datum]
+                nov_seznam_ur.sort()
+                index = nov_seznam_ur.index(datum)
+                razlika = min(datum - nov_seznam_ur[index - 1], nov_seznam_ur[index + 1] - datum)
+                if razlika >= DOLZINA_REZERVACIJE:
+                    miza.rezerviraj(rezervacija)
+                    return True
+        return False
     
     def dodaj_mizo(self, miza):
         desetice = self.lokacije[self.miza.lokacija]
         global stevilo
         stevilo += 1
         miza.stevilka = desetice * 10 + stevilo
-        self.mize[miza.lokacija] = self.mize.get(miza.lokacija).append(miza)
-        #pazi zgoraj bo treba nekaj spremeniti
+        self.mize[miza.lokacija] = self.mize.get(miza.lokacija) + [(miza.stevilo_oseb, miza)]
 
     def dodaj_lokacijo(self, lokacija):
         self.lokacije.append(lokacija)
         self.mize[lokacija] = []
-
-    def uredi_rezervacije(self):
-        for termin in self.rezervacije:
-            mize_za_tok_oseb = [miza for miza in self.mize if miza.stevilo_oseb == termin[2].stevilo_oseb and not miza.preveri_zzasedenost]
-            pass
-            
-            
 
 
 class Miza:
@@ -64,14 +51,15 @@ class Miza:
     def preveri_zasedenost(self):
         return self.zasedenost
 
-    def zasedena_miza(self):
-        self.zasedenost = True
-    
+    def naredi_zasedeno_brez_rezervacije(self):
+        self.rezerviranost.append(datetime.datetime.today())
+        self.rezerviranost.sort()
+
     def prosta_miza(self):
         self.zasedenost = False
 
     def naslednja_rezervacija(self):
-        return f"Naslednja rezervacija je ob  {self.rezervacija.ura}"
+        return f"Naslednja rezervacija je ob  {self.rezerviranost[0]}"
 
 class Rezervacija:
     def __init__(self,ime, stevilo_oseb, datum_ura, prostor, opravljenost=False):
