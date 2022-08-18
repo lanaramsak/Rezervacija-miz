@@ -14,10 +14,17 @@ class Stanje:
         datum = rezervacija.datum
         for miza in sorted(self.mize[rezervacija.lokacija]):
             if rezervacija.stevilo_oseb <= miza.stevilo_oseb:
+                if miza.rezerviranost == []:
+                    return True
                 nov_seznam_ur = miza.rezerviranost + [datum]
                 nov_seznam_ur.sort()
                 index = nov_seznam_ur.index(datum)
-                razlika = min(datum - nov_seznam_ur[index - 1], nov_seznam_ur[index + 1] - datum)
+                if index == len(nov_seznam_ur) - 1:
+                    razlika = datum - nov_seznam_ur[index - 1]
+                elif index == 0:
+                    razlika = nov_seznam_ur[index + 1] - datum
+                else:
+                    razlika = min(datum - nov_seznam_ur[index - 1], nov_seznam_ur[index + 1] - datum)
                 if razlika >= DOLZINA_REZERVACIJE:
                     miza.rezerviraj(rezervacija)
                     return True
@@ -28,7 +35,7 @@ class Stanje:
         global stevilo
         stevilo += 1
         miza.stevilka = desetice * 10 + stevilo
-        self.mize[miza.lokacija] = self.mize.get(miza.lokacija) + [(miza.stevilo_oseb, miza)]
+        self.mize[miza.lokacija] = self.mize.get(miza.lokacija) + [miza]
 
     def dodaj_lokacijo(self, lokacija):
         self.lokacije.append(lokacija)
@@ -43,7 +50,10 @@ class Miza:
         self.prostor = prostor
         self.rezerviranost = rezerviranost
         self.zasedenost = zasedenost
-    
+
+    def __lt___(self, miza2):
+        return self.stevilo_oseb < miza2.stevilo_oseb
+
     def rezerviraj(self, rezervacija):
         self.rezerviranost.append(rezervacija.datum)
         self.rezerviranost.sort()
@@ -59,14 +69,17 @@ class Miza:
         self.zasedenost = False
 
     def naslednja_rezervacija(self):
-        return f"Naslednja rezervacija je ob  {self.rezerviranost[0]}"
+        if self.rezerviranost == []:
+            return "Ni prihajajočih rezervacij"
+        else:
+            return f"Naslednja rezervacija je ob {self.rezerviranost[0]}"
 
 class Rezervacija:
-    def __init__(self,ime, stevilo_oseb, datum_ura, prostor, opravljenost=False):
+    def __init__(self,ime, stevilo_oseb, datum_ura, lokacija, opravljenost=False):
         self.ime = ime
         self.stevilo_oseb = stevilo_oseb
         self.datum = datum_ura
-        self.prostor = prostor
+        self.lokacija = lokacija
         self.opravljenost = opravljenost
         
     def prispela_rezervacija(self):
