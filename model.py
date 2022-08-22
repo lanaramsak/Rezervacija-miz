@@ -5,7 +5,9 @@ import json
 DOLZINA_REZERVACIJE = datetime.timedelta(hours = 2)
 
 class Stanje:
-    def __init__(self, mize={}, lokacije=[]):
+    def __init__(self, restavracija, geslo, mize={}, lokacije=[]):
+        self.uporabnik = restavracija
+        self.geslo = geslo
         self.mize = sorted(mize)
         self.lokacije = lokacije
         #izpis vseh rezervacij, kako?
@@ -52,7 +54,7 @@ class Stanje:
 
     def v_slovar(self):
         miza_spomin = [miza.v_slovar() for miza in self.mize]
-        return {"mize" : miza_spomin, "lokacije" : self.lokacije}
+        return {"restavracija" : self.restavracija, "geslo" : self.geslo, "mize" : miza_spomin, "lokacije" : self.lokacije}
 
     def shrani_v_datoteko(self, ime_datoteke):
         with open(ime_datoteke, "w") as dat:
@@ -61,7 +63,7 @@ class Stanje:
 
     @staticmethod
     def iz_slovarja_stanje(slovar):
-        return Stanje([iz_slovarja_miza(miza) for miza in slovar["mize"]], slovar["lokacije"])
+        return Stanje(slovar["restavracija"], slovar["geslo"], [iz_slovarja_miza(miza) for miza in slovar["mize"]], slovar["lokacije"])
 
     @staticmethod
     def preberi_iz_datoteke(ime_datoteke):
