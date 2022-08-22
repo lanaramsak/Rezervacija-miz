@@ -7,16 +7,16 @@ DOLZINA_REZERVACIJE = datetime.timedelta(hours = 2)
 class Stanje:
     def __init__(self, mize={}, rezervacije=[], lokacije=[]):
         self.mize = sorted(mize)
-        self.rezervacije = sorted(rezervacije)
         self.lokacije = lokacije
+        #izpis vseh rezervacij, kako?
 
     def dodaj_rezervacijo(self, rezervacija):
         datum = rezervacija.datum
         for miza in sorted(self.mize[rezervacija.lokacija]):
             if rezervacija.stevilo_oseb <= miza.stevilo_oseb:
-                if miza.rezerviranost == []:
+                if miza.timeline == {}:
                     return True
-                nov_seznam_ur = miza.rezerviranost + [datum]
+                nov_seznam_ur = list(miza.timeline.keys()) + [datum]
                 nov_seznam_ur.sort()
                 index = nov_seznam_ur.index(datum)
                 if index == len(nov_seznam_ur) - 1:
@@ -41,46 +41,74 @@ class Stanje:
         self.lokacije.append(lokacija)
         self.mize[lokacija] = []
 
+    def preverjanje_zasedenosti(self):
+        while True:
+            for miza in self.mize:
+                if list(miza.timeline.keys().sort())[0] <= datetime.datetime.today():
+                    miza.zasedi()
+                if list(miza.timeline.values().sort())[0] <= datetime.datetime.today():
+                    miza.prosta
+                    #kaj če je vmes program zaprt pa poteče rezervacija, zato <=
+
+    def v_slovar(self):
+        miza_spomin = [miza.v_slovar() for miza in self.mize]
+        return {"mize" : miza_spomin, "lokacije" : self.lokacije}
+
 
 class Miza:
     stevilo = 0
-    def __init__(self, stevilo_oseb, lokacija, prostor, rezerviranost=[], zasedenost=False):
+    def __init__(self, stevilo_oseb, lokacija, timeline={}, rezerviranost=[], zasedenost=False):
         self.stevilo_oseb = stevilo_oseb
         self.lokacija = lokacija
-        self.prostor = prostor
-        self.rezerviranost = rezerviranost
+        self.timeline = timeline
         self.zasedenost = zasedenost
+        self.rezerviranost = rezerviranost
 
     def __lt___(self, miza2):
         return self.stevilo_oseb < miza2.stevilo_oseb
 
     def rezerviraj(self, rezervacija):
-        self.rezerviranost.append(rezervacija.datum)
-        self.rezerviranost.sort()
+        self.timeline[rezervacija.datum] = rezervacija.datum + DOLZINA_REZERVACIJE
+        self.rezerviranost.append(rezervacija)
 
     def preveri_zasedenost(self):
         return self.zasedenost
 
     def naredi_zasedeno_brez_rezervacije(self):
-        self.rezerviranost.append(datetime.datetime.today())
-        self.rezerviranost.sort()
+        self.timeline.append(datetime.datetime.today())
+        self.timeline.sort()
 
-    def prosta_miza(self):
+    def zasedi(self):
+        self.zasedenost = True
+
+    def prosta(self):
         self.zasedenost = False
+        self.timeline.pop(list(self.timeline.keys())[0])
 
     def naslednja_rezervacija(self):
-        if self.rezerviranost == []:
+        if self.timeline == []:
             return "Ni prihajajočih rezervacij"
         else:
-            return f"Naslednja rezervacija je ob {self.rezerviranost[0]}"
+            return f"Naslednja rezervacija je ob {self.timeline[0].__str__()}"
+
+    def v_slovar(self):
+        rezerviranost_spomin = [rezervacija.v_slovar() for rezervacija in self.rezerviranost]
+        return {"stevilo_oseb" : self.stevilo_oseb, "lokacija" : self.lokacija, "timeline" : self.timeline, "rezerviranost" : rezerviranost_spomin, "zasedenost" : self.zasedenost}
 
 class Rezervacija:
-    def __init__(self,ime, stevilo_oseb, datum_ura, lokacija, opravljenost=False):
+    def __init__(self, ime, stevilo_oseb, datum_ura, lokacija, opravljenost=False):
         self.ime = ime
         self.stevilo_oseb = stevilo_oseb
         self.datum = datum_ura
         self.lokacija = lokacija
         self.opravljenost = opravljenost
+
+    def __lt__(self, other):
+        return self.datum < other.datum
         
     def prispela_rezervacija(self):
         self.opravljenost = True
+
+    def v_slovar(self):
+        return {"ime" : self.ime, "stevilo_oseb" : self.stevilo_oseb, "datum" : self.datum, "lokacija" : self.lokacija, "opravljenost" : self.opravljenost}
+  
