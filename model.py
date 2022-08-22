@@ -1,11 +1,11 @@
 import datetime
-import sched, time
+import json
 
 
 DOLZINA_REZERVACIJE = datetime.timedelta(hours = 2)
 
 class Stanje:
-    def __init__(self, mize={}, rezervacije=[], lokacije=[]):
+    def __init__(self, mize={}, lokacije=[]):
         self.mize = sorted(mize)
         self.lokacije = lokacije
         #izpis vseh rezervacij, kako?
@@ -54,6 +54,20 @@ class Stanje:
         miza_spomin = [miza.v_slovar() for miza in self.mize]
         return {"mize" : miza_spomin, "lokacije" : self.lokacije}
 
+    def shrani_v_datoteko(self, ime_datoteke):
+        with open(ime_datoteke, "w") as dat:
+            slovar = self.v_slovar()
+            json.dump(slovar, dat, indent=4, ensure_ascii= False)
+
+    @staticmethod
+    def iz_slovarja_stanje(slovar):
+        return Stanje([iz_slovarja_miza(miza) for miza in slovar["mize"]], slovar["lokacije"])
+
+    @staticmethod
+    def preberi_iz_datoteke(ime_datoteke):
+        with open(ime_datoteke) as dat:
+            slovar = json.load(dat)
+            return Stanje.iz_slovarja(slovar)
 
 class Miza:
     stevilo = 0
@@ -95,11 +109,16 @@ class Miza:
         rezerviranost_spomin = [rezervacija.v_slovar() for rezervacija in self.rezerviranost]
         return {"stevilo_oseb" : self.stevilo_oseb, "lokacija" : self.lokacija, "timeline" : self.timeline, "rezerviranost" : rezerviranost_spomin, "zasedenost" : self.zasedenost}
 
+    @staticmethod
+    def iz_slovarja_miza(slovar):
+        return Miza(slovar["stevilo_oseb"], slovar["lokacija"], slovar["timeline"], [iz_slovarja_rezervacija(rezervacija) for rezervacija in slovar["rezerviranost"]], slovar["zasedenost"])
+
+
 class Rezervacija:
-    def __init__(self, ime, stevilo_oseb, datum_ura, lokacija, opravljenost=False):
+    def __init__(self, ime, stevilo_oseb, datum, lokacija, opravljenost=False):
         self.ime = ime
         self.stevilo_oseb = stevilo_oseb
-        self.datum = datum_ura
+        self.datum = datum
         self.lokacija = lokacija
         self.opravljenost = opravljenost
 
@@ -111,4 +130,7 @@ class Rezervacija:
 
     def v_slovar(self):
         return {"ime" : self.ime, "stevilo_oseb" : self.stevilo_oseb, "datum" : self.datum, "lokacija" : self.lokacija, "opravljenost" : self.opravljenost}
-  
+    
+    @staticmethod
+    def iz_slovarja_rezervacija(slovar):
+        return Rezervacija(slovar["ime"], slovar["stevilo_oseb"], slovar["datum"], slovar["lokacija"], slovar["opravljenost"]) 
