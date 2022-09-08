@@ -1,12 +1,11 @@
 import datetime
 import json
-from this import d
 
 DOLZINA_REZERVACIJE = datetime.timedelta(hours = 2)
 
 class Stanje:
     def __init__(self, restavracija, geslo, mize={}, lokacije=[]):
-        self.uporabnik = restavracija
+        self.restavracija = restavracija
         self.geslo = geslo
         self.mize = mize
         self.lokacije = lokacije
