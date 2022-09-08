@@ -1,5 +1,3 @@
-from re import M
-from tkinter import Y
 import bottle
 import datetime
 from model import Stanje, Miza, Rezervacija
@@ -13,7 +11,9 @@ stanje = Stanje.preberi_iz_datoteke("primer_stanja.json")
 def zacetna_stran():
     return bottle.template(
         "zacetna_stran.tpl",
-        vse_rezervacije = stanje.zbirka_rezervacij()
+        ime_restavracije = stanje.restavracija,
+        vse_rezervacije = stanje.zbirka_rezervacij(),
+        vse_lokacije = stanje.lokacije
     )
 
 @bottle.get("/nova_rezervacija/")
@@ -21,6 +21,7 @@ def dodaj_rezervacijo():
     return bottle.template(
         "dodaj_rezervacijo.tpl", 
         vse_lokacije = stanje.lokacije,
+        ime_restavracije = stanje.restavracija,
         uspesnost = True 
     )
 
@@ -36,9 +37,16 @@ def naredi_rezervacijo():
     else:
             return bottle.template(
         "dodaj_rezervacijo.tpl",
-        vse_lokacije = stanje.lokacije, 
+        vse_lokacije = stanje.lokacije,
+        ime_restavracije = stanje.restavracija,
         uspesnost = False
     )
+
+@bottle.post("/dodaj_lokacijo/")
+def dodaj_lokacijo():
+    lokacija = bottle.request.forms.getunicode("lokacija")
+    stanje.dodaj_lokacijo(lokacija)
+    return bottle.redirect("/")
 
 
 @bottle.post("/opravi/<st_rezervacije: str>/")
@@ -46,7 +54,9 @@ def opravi(st_rezervacije):
     rezervacija = stanje.zbirka_rezervacij()[st_rezervacije]
 
     return bottle.template(
-        "dodaj_rezervacijo.tpl"
+        "dodaj_rezervacijo.tpl",
+        ime_restavracije = stanje.restavracija,
+        vse_lokacije = stanje.lokacije
     )
 
 bottle.run(debug=True, reloader=True)
