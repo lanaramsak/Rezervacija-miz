@@ -1,5 +1,6 @@
 % rebase('osnova.tpl')
 
+<div class="column is-one-half">
 <table class="table is-bordered is-hoverable"> 
     <h1 class="tittle is-1">Pregled prihodnih rezervacij</h1>
 
@@ -14,5 +15,6 @@
     </tr>
     % end
 </table>
+</div>
 
 <a href="/nova_rezervacija/" class="button">DODAJ NOVO REZERVACIJO</a>
