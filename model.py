@@ -42,6 +42,13 @@ class Stanje:
         self.lokacije.append(lokacija)
         self.mize[lokacija] = []
 
+    def zbirka_rezervacij(self):
+        vse_rezervacije = []
+        for lokacija in self.mize.keys():
+            for miza in self.mize[lokacija]:
+                vse_rezervacije += [(rezervacija, miza.stevilka) for rezervacija in miza.rezerviranost]
+        return sorted(vse_rezervacije)
+
     def preverjanje_zasedenosti(self):
         while True:
             for miza in self.mize:
