@@ -1,0 +1,42 @@
+{
+    "restavracija" : "Capriccio", 
+    "geslo" : "geslo", 
+    "mize" : 
+        {
+        "vrt" : [
+            {"stevilo_oseb" : 4, "lokacija" : "vrt", "timeline" : ["2022-09-08 15:20:00", "2022-09-08 12:00:00"], "rezerviranost" : 
+            [{
+                "ime" : "Ana", 
+                "stevilo_oseb" : 4, 
+                "datum" : "2022-09-08 15:20:00", 
+                "lokacija" : "vrt", 
+                "opravljenost" : false
+            },
+            {
+                "ime" : "Nika", 
+                "stevilo_oseb" : 4, 
+                "datum" : "2022-09-08 12:00:00", 
+                "lokacija" : "vrt", 
+                "opravljenost" : false
+            }],
+            "zasedenost" : false}],
+        "notranjost" : [
+            {"stevilo_oseb" : 2, "lokacija" : "notranjost", "timeline" : ["2022-09-08 14:25:00", "2022-09-08 19:00:00"], "rezerviranost" : 
+            [{
+                "ime" : "Gregor", 
+                "stevilo_oseb" : 2, 
+                "datum" : "2022-09-08 14:25:00", 
+                "lokacija" : "notranjost", 
+                "opravljenost" : false
+            },
+            {
+                "ime" : "Lana", 
+                "stevilo_oseb" : 2, 
+                "datum" : "2022-09-08 19:00:00", 
+                "lokacija" : "notranjost", 
+                "opravljenost" : false
+            }],
+            "zasedenost" : false}]
+        }, 
+    "lokacije" : ["vrt", "notranjost"]
+}
