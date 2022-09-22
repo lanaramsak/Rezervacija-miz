@@ -20,16 +20,16 @@
           Ne vem še kaj tukaj napisati
         </p>
         <ul class="menu-list">
-            <li><a class="is-active">Pregled vseh rezervacij</a>
+            <li><a href="/pregled_rezervacij/">Pregled vseh rezervacij</a>
             <a>Pregled vseh miz</a>
                 <ul>
                     %for lokacija in vse_lokacije:
-                        <li><a>{{lokacija}}</a></li>
+                        <li><a href="/pregled_miz/">{{lokacija}}</a></li>
                     %end
                         <li>
                             <a>
                             <form method="POST" action="/dodaj_lokacijo/">
-                                <input type="text" id="lokacija" name="lokacija" placeholder="Dodaj lokacijo...">
+                                <input type="text" id="lokacija" name="lokacija" placeholder= "Ime lokacije..." >
                             </form>
                             </a>
                         </li>

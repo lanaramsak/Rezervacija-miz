@@ -1,0 +1,1 @@
+% rebase('osnova.tpl', ime_strani = "pregled_miz")
