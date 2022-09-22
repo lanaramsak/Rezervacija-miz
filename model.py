@@ -38,8 +38,12 @@ class Stanje:
         self.mize[miza.lokacija] = self.mize.get(miza.lokacija) + [miza]
 
     def dodaj_lokacijo(self, lokacija):
-        self.lokacije.append(lokacija)
-        self.mize[lokacija] = []
+        if lokacija not in self.lokacije:
+            self.lokacije.append(lokacija)
+            self.mize[lokacija] = []
+            return False
+        else:
+            return True
 
     def zbirka_rezervacij(self):
         vse_rezervacije = []
