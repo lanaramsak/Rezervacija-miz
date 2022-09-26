@@ -31,7 +31,7 @@ class Stanje:
         return False
     
     def dodaj_mizo(self, miza):
-        desetice = self.lokacije[self.miza.lokacija]
+        desetice = self.lokacije.index(self.miza.lokacija)
         global stevilo
         stevilo += 1
         miza.stevilka = desetice * 10 + stevilo
@@ -51,6 +51,11 @@ class Stanje:
             for miza in self.mize[lokacija]:
                 vse_rezervacije += [(rezervacija, miza.stevilka) for rezervacija in miza.rezerviranost]
         return sorted(vse_rezervacije)
+    
+    def odstrani_rezervacijo(self, rezervacija, miza_st):
+        lokacija = self.lokacije[miza_st // 10]
+        miza = self.mize[lokacija][miza_st - (miza_st // 10) * 10 - 1]
+        miza.odstrani_rezervacijo(rezervacija)
 
     def preverjanje_zasedenosti(self):
         while True:
@@ -104,6 +109,12 @@ class Miza:
 
     def preveri_zasedenost(self):
         return self.zasedenost
+    
+    def odstrani_rezervacijo(self, rezervacija):
+        print(rezervacija)
+        print(self.rezerviranost)
+        self.rezerviranost.remove(rezervacija)
+        self.timeline.remove(rezervacija.datum)
 
     def naredi_zasedeno_brez_rezervacije(self):
         self.timeline.append(datetime.datetime.today())
@@ -124,11 +135,11 @@ class Miza:
 
     def v_slovar(self):
         rezerviranost_spomin = [rezervacija.v_slovar() for rezervacija in self.rezerviranost]
-        return {"stevilo_oseb" : self.stevilo_oseb, "lokacija" : self.lokacija, "timeline" : [str(time) for time in self.timeline], "rezerviranost" : rezerviranost_spomin, "zasedenost" : self.zasedenost}
+        return {"stevilo_oseb" : self.stevilo_oseb, "lokacija" : self.lokacija, "timeline" : [str(time) for time in self.timeline], "rezerviranost" : rezerviranost_spomin, "zasedenost" : self.zasedenost, "stevilka_mize" : self.stevilka}
 
     @staticmethod
     def iz_slovarja_miza(slovar):
-        return Miza(slovar["stevilo_oseb"], slovar["lokacija"], [datetime.datetime.strptime(datum, "%Y-%m-%d %H:%M:%S") for datum in slovar["timeline"]], [Rezervacija.iz_slovarja_rezervacija(rezervacija) for rezervacija in slovar["rezerviranost"]], slovar["zasedenost"])
+        return Miza(slovar["stevilo_oseb"], slovar["lokacija"], [datetime.datetime.strptime(datum, "%Y-%m-%d %H:%M:%S") for datum in slovar["timeline"]], [Rezervacija.iz_slovarja_rezervacija(rezervacija) for rezervacija in slovar["rezerviranost"]], slovar["zasedenost"], slovar["stevilka_mize"])
 
 
 class Rezervacija:
@@ -151,3 +162,5 @@ class Rezervacija:
     @staticmethod
     def iz_slovarja_rezervacija(slovar):
         return Rezervacija(slovar["ime"], slovar["stevilo_oseb"], datetime.datetime.strptime(slovar["datum"], "%Y-%m-%d %H:%M:%S"), slovar["lokacija"], slovar["opravljenost"]) 
+
+

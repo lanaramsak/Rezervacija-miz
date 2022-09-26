@@ -19,7 +19,8 @@
                 "lokacija" : "Vrt", 
                 "opravljenost" : false
             }],
-            "zasedenost" : false}],
+            "zasedenost" : false, 
+            "stevilka_mize" : 1 }],
         "Notranjost" : [
             {"stevilo_oseb" : 2, "lokacija" : "Notranjost", "timeline" : ["2022-09-21 14:25:00", "2022-09-21 19:00:00"], "rezerviranost" : 
             [{
@@ -36,7 +37,26 @@
                 "lokacija" : "Notranjost", 
                 "opravljenost" : false
             }],
-            "zasedenost" : false}]
+            "zasedenost" : false, 
+            "stevilka_mize" : 11},
+            {"stevilo_oseb" : 3 , "lokacija" : "Notranjost", "timeline" : ["2022-10-21 18:25:00", "2022-09-30 19:00:00"], "rezerviranost" : 
+            [{
+                "ime" : "Eva", 
+                "stevilo_oseb" : 3, 
+                "datum" : "2022-10-21 18:25:00", 
+                "lokacija" : "Notranjost", 
+                "opravljenost" : false
+            },
+            {
+                "ime" : "Zala", 
+                "stevilo_oseb" : 2, 
+                "datum" : "2022-09-30 19:00:00", 
+                "lokacija" : "Notranjost", 
+                "opravljenost" : false
+            }],
+            "zasedenost" : false, 
+            "stevilka_mize" : 12}
+        ]
         }, 
     "lokacije" : ["Vrt", "Notranjost"]
 }

@@ -65,27 +65,18 @@ def dodaj_lokacijo():
     
 
 
-@bottle.post("/prispelo/<st_rezervacije: int>/")
+@bottle.post("/prispelo/<st_rezervacije:int>/")
 def prispelo(st_rezervacije):
     rezervacija = stanje.zbirka_rezervacij()[st_rezervacije]
     rezervacija.prispela_rezervacija()
 
+    return bottle.redirect("/pregled_rezervacij/")
 
-    return bottle.template(
-        "dodaj_rezervacijo.tpl",
-        ime_restavracije = stanje.restavracija,
-        vse_lokacije = stanje.lokacije
-    )
-
-@bottle.post("/preklici/<st_rezervacije: int>/")
+@bottle.post("/preklici/<st_rezervacije:int>/")
 def preklici(st_rezervacije):
-    rezervacija = stanje.zbirka_rezervacij()[st_rezervacije]
-
-
-    return bottle.template(
-        "dodaj_rezervacijo.tpl",
-        ime_restavracije = stanje.restavracija,
-        vse_lokacije = stanje.lokacije
-    )
+    rezervacija = stanje.zbirka_rezervacij()[st_rezervacije][0]
+    miza_st = stanje.zbirka_rezervacij()[st_rezervacije][1]
+    stanje.odstrani_rezervacijo(rezervacija, miza_st)
+    return bottle.redirect("/pregled_rezervacij/")
 
 bottle.run(debug=True, reloader=True)

@@ -5,7 +5,7 @@
     <h1 class="tittle is-1">Pregled prihodnih rezervacij</h1>
 
     <tr> <th>Rezervacija</th> <th>Število oseb</th> <th>Ura</th> <th>Miza</th>  <th>Prekliči</th>  </tr>
-    % for rezervacija, miza in vse_rezervacije: 
+    % for id_rezervacije, (rezervacija, miza) in enumerate(vse_rezervacije): 
     <tr> <td>{{rezervacija.ime}}</td>   <td>{{rezervacija.stevilo_oseb}}</td> <td>{{rezervacija.datum}}</td> <td>{{miza}}</td>  
         <td>
             <form method="POST"  action="/prispelo/{{id_rezervacije}}/">
