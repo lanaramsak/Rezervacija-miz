@@ -45,17 +45,27 @@ class Stanje:
         else:
             return True
 
-    def zbirka_rezervacij(self):
+    def vse_rezervacije(self):
         vse_rezervacije = []
         for lokacija in self.mize.keys():
             for miza in self.mize[lokacija]:
                 vse_rezervacije += [(rezervacija, miza.stevilka) for rezervacija in miza.rezerviranost]
         return sorted(vse_rezervacije)
+
+    def zbirka_rezervacij(self):
+        vse_rezervacije = []
+        for lokacija in self.mize.keys():
+            for miza in self.mize[lokacija]:
+                for rezervacija in miza.rezerviranost:
+                    if rezervacija.datum > datetime.datetime.today():
+                        vse_rezervacije += [(rezervacija, miza.stevilka)]
+                        #a bi blo pols it na podlagi opravljenosti rezervacije??
+        return sorted(vse_rezervacije)
     
-    def odstrani_rezervacijo(self, rezervacija, miza_st):
+    def najdi_mizo(self, rezervacija, miza_st):
         lokacija = self.lokacije[miza_st // 10]
         miza = self.mize[lokacija][miza_st - (miza_st // 10) * 10 - 1]
-        miza.odstrani_rezervacijo(rezervacija)
+        return miza
 
     def preverjanje_zasedenosti(self):
         while True:
@@ -111,8 +121,6 @@ class Miza:
         return self.zasedenost
     
     def odstrani_rezervacijo(self, rezervacija):
-        print(rezervacija)
-        print(self.rezerviranost)
         self.rezerviranost.remove(rezervacija)
         self.timeline.remove(rezervacija.datum)
 
@@ -155,6 +163,7 @@ class Rezervacija:
         
     def prispela_rezervacija(self):
         self.opravljenost = True
+        self.datum = datetime.datetime.today().replace(microsecond=0)
 
     def v_slovar(self):
         return {"ime" : self.ime, "stevilo_oseb" : self.stevilo_oseb, "datum" : str(self.datum), "lokacija" : self.lokacija, "opravljenost" : self.opravljenost}

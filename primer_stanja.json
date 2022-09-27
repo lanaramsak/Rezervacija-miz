@@ -4,36 +4,36 @@
     "mize" : 
         {
         "Vrt" : [
-            {"stevilo_oseb" : 4, "lokacija" : "Vrt", "timeline" : ["2022-09-20 15:20:00", "2022-09-20 12:00:00"], "rezerviranost" : 
+            {"stevilo_oseb" : 4, "lokacija" : "Vrt", "timeline" : ["2022-10-20 15:20:00", "2022-10-20 12:00:00"], "rezerviranost" : 
             [{
                 "ime" : "Ana", 
                 "stevilo_oseb" : 4, 
-                "datum" : "2022-09-20 15:20:00", 
+                "datum" : "2022-10-20 15:20:00", 
                 "lokacija" : "Vrt", 
                 "opravljenost" : false
             },
             {
                 "ime" : "Nika", 
                 "stevilo_oseb" : 4, 
-                "datum" : "2022-09-20 12:00:00", 
+                "datum" : "2022-10-20 12:00:00", 
                 "lokacija" : "Vrt", 
                 "opravljenost" : false
             }],
             "zasedenost" : false, 
             "stevilka_mize" : 1 }],
         "Notranjost" : [
-            {"stevilo_oseb" : 2, "lokacija" : "Notranjost", "timeline" : ["2022-09-21 14:25:00", "2022-09-21 19:00:00"], "rezerviranost" : 
+            {"stevilo_oseb" : 2, "lokacija" : "Notranjost", "timeline" : ["2022-10-21 14:25:00", "2022-10-21 19:00:00"], "rezerviranost" : 
             [{
                 "ime" : "Carlos", 
                 "stevilo_oseb" : 2, 
-                "datum" : "2022-09-21 14:25:00", 
+                "datum" : "2022-10-21 14:25:00", 
                 "lokacija" : "Notranjost", 
                 "opravljenost" : false
             },
             {
                 "ime" : "Lana", 
                 "stevilo_oseb" : 2, 
-                "datum" : "2022-09-21 19:00:00", 
+                "datum" : "2022-10-21 19:00:00", 
                 "lokacija" : "Notranjost", 
                 "opravljenost" : false
             }],

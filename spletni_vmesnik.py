@@ -34,6 +34,16 @@ def pregled_rezervacij():
         vse_lokacije = stanje.lokacije,
         )
 
+@bottle.get("/pregled_preteklih_rezervacij/")
+def pregled_rezervacij():
+    return bottle.template(
+        "pregled_preteklih_rezervacij.tpl",     
+        vse_rezervacije = stanje.vse_rezervacije(),
+        ime_restavracije = stanje.restavracija,
+        vse_lokacije = stanje.lokacije,
+        )
+
+
 @bottle.post("/nova_rezervacija/")
 def naredi_rezervacijo():
     ime = bottle.request.forms.getunicode("ime")
@@ -67,8 +77,11 @@ def dodaj_lokacijo():
 
 @bottle.post("/prispelo/<st_rezervacije:int>/")
 def prispelo(st_rezervacije):
-    rezervacija = stanje.zbirka_rezervacij()[st_rezervacije]
+    rezervacija = stanje.zbirka_rezervacij()[st_rezervacije][0]
+    miza_st = stanje.zbirka_rezervacij()[st_rezervacije][1]
+    miza = stanje.najdi_mizo(rezervacija, miza_st)
     rezervacija.prispela_rezervacija()
+    miza.zasedi()
 
     return bottle.redirect("/pregled_rezervacij/")
 
@@ -76,7 +89,8 @@ def prispelo(st_rezervacije):
 def preklici(st_rezervacije):
     rezervacija = stanje.zbirka_rezervacij()[st_rezervacije][0]
     miza_st = stanje.zbirka_rezervacij()[st_rezervacije][1]
-    stanje.odstrani_rezervacijo(rezervacija, miza_st)
+    miza = stanje.najdi_mizo(rezervacija, miza_st)
+    miza.odstrani_rezervacijo(rezervacija)
     return bottle.redirect("/pregled_rezervacij/")
 
 bottle.run(debug=True, reloader=True)
