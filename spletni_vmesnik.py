@@ -67,7 +67,7 @@ def dodaj_mizo():
         ime_lokacije = ""
     )
 
-@bottle.get("/nova_miza/<ime_lokacije>")
+@bottle.get("/nova_miza/<ime_lokacije>/")
 def dodaj_mizo(ime_lokacije):
     return bottle.template(
         "dodaj_mizo.tpl", 
@@ -83,13 +83,27 @@ def naredi_mizo():
     stanje.dodaj_mizo(miza)
     return bottle.redirect("/pregled_miz/")
 
-@bottle.post("/nova_miza/<ime_lokacije>")
+@bottle.post("/nova_miza/<ime_lokacije>/")
 def naredi_mizo(ime_lokacije):
     st_oseb = int(bottle.request.forms.getunicode("st_oseb"))
     lokacija = ime_lokacije
     miza = Miza(st_oseb, lokacija)
     stanje.dodaj_mizo(miza)
     return bottle.redirect("/pregled_miz/<ime_lokacije>/")
+
+@bottle.post("/naredi_prosto/<katera_miza:int>/")
+def naredi_prosto(katera_miza):
+    lokacija = stanje.lokacije[katera_miza // 10]
+    miza = stanje.mize[lokacija][katera_miza - (katera_miza // 10) * 10]
+    miza.prosta()
+    return bottle.redirect("/pregled_miz/")
+
+@bottle.post("/naredi_zasedeno/<katera_miza:int>/")
+def naredi_zasedeno(katera_miza):
+    lokacija = stanje.lokacije[katera_miza // 10]
+    miza = stanje.mize[lokacija][katera_miza - (katera_miza // 10) * 10]
+    miza.naredi_zasedeno_brez_rezervacije()
+    return bottle.redirect("/pregled_miz/")
 
 @bottle.get("/nova_rezervacija/")
 def dodaj_rezervacijo():

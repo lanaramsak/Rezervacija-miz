@@ -126,8 +126,6 @@ class Miza:
     def naredi_zasedeno_brez_rezervacije(self):
         self.timeline.append(datetime.datetime.today())
         self.timeline.sort()
-
-    def zasedi(self):
         self.zasedenost = True
 
     def prosta(self):

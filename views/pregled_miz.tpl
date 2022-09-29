@@ -1,24 +1,28 @@
 % rebase('osnova.tpl', ime_strani = "pregled_miz")
 
 <table>
-    %for lokacija in katere_mize:
+    %for st_lokacije,lokacija in enumerate(katere_mize):
         <tr>
-        %for miza in vse_mize[lokacija]:
+        %for st_miza, miza in enumerate(vse_mize[lokacija]):
             %if miza.zasedenost:
             <td>
-            <div class="box">  
+            <form method="POST" action="/naredi_prosto/{{st_lokacije}}{{st_miza}}/">
+            <button>  
                 {{miza.stevilka}}
                 <br>
                 Zasedeno
-            </div>
+            </button>
+            </form>
             </td>
             %else:
             <td>
-            <div class="box">  
+            <form method="POST" action="/naredi_zasedeno/{{st_lokacije}}{{st_miza}}/">
+            <button>  
                 {{miza.stevilka}} 
                 <br>
                 Prosto
-            </div>
+            </button>
+            </form>
             </td>
             %end
         %end
