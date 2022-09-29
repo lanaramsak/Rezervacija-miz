@@ -21,10 +21,10 @@
         <ul class="menu-list">
             <li><a href="/pregled_rezervacij/">Pregled prihajajočih rezervacij </a>
             <li><a href="/pregled_preteklih_rezervacij/">Pregled preteklih rezervacij </a>
-            <a>Pregled vseh miz</a>
+            <a href="/pregled_miz/">Pregled vseh miz</a>
                 <ul>
                     %for lokacija in vse_lokacije:
-                        <li><a href="/pregled_miz/">{{lokacija}}</a></li>
+                        <li><a href="/pregled_miz/{{lokacija}}/">{{lokacija}}</a></li>
                     %end
                         <li>
                             <a>

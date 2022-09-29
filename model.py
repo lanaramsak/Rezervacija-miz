@@ -12,7 +12,7 @@ class Stanje:
 
     def dodaj_rezervacijo(self, rezervacija):
         datum = rezervacija.datum
-        for miza in sorted(self.mize[rezervacija.lokacija]):
+        for miza in self.mize[rezervacija.lokacija].sort():
             if rezervacija.stevilo_oseb <= miza.stevilo_oseb:
                 if miza.timeline == {}:
                     return True
@@ -31,9 +31,8 @@ class Stanje:
         return False
     
     def dodaj_mizo(self, miza):
-        desetice = self.lokacije.index(self.miza.lokacija)
-        global stevilo
-        stevilo += 1
+        desetice = self.lokacije.index(miza.lokacija)
+        stevilo = len(self.mize[miza.lokacija]) + 1
         miza.stevilka = desetice * 10 + stevilo
         self.mize[miza.lokacija] = self.mize.get(miza.lokacija) + [miza]
 
@@ -59,10 +58,9 @@ class Stanje:
                 for rezervacija in miza.rezerviranost:
                     if rezervacija.datum > datetime.datetime.today():
                         vse_rezervacije += [(rezervacija, miza.stevilka)]
-                        #a bi blo pols it na podlagi opravljenosti rezervacije??
         return sorted(vse_rezervacije)
     
-    def najdi_mizo(self, rezervacija, miza_st):
+    def najdi_mizo(self, miza_st):
         lokacija = self.lokacije[miza_st // 10]
         miza = self.mize[lokacija][miza_st - (miza_st // 10) * 10 - 1]
         return miza
@@ -118,6 +116,7 @@ class Miza:
         self.rezerviranost.append(rezervacija)
 
     def preveri_zasedenost(self):
+        #preveri v timeinu ce je prosto
         return self.zasedenost
     
     def odstrani_rezervacijo(self, rezervacija):
