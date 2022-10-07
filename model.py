@@ -16,7 +16,7 @@ class Stanje:
             if rezervacija.stevilo_oseb <= miza.stevilo_oseb:
                 if miza.timeline == {}:
                     return True
-                nov_seznam_ur = miza.timeline + [datum]
+                nov_seznam_ur = miza.timeline.keys() + [datum]
                 nov_seznam_ur.sort()
                 index = nov_seznam_ur.index(datum)
                 if index == len(nov_seznam_ur) - 1:
@@ -100,7 +100,7 @@ class Stanje:
 
 class Miza:
     stevilo = 0
-    def __init__(self, stevilo_oseb, lokacija, timeline=[], rezerviranost=[], zasedenost=False, stevilka=0):
+    def __init__(self, stevilo_oseb, lokacija, timeline={}, rezerviranost=[], zasedenost=False, stevilka=0):
         self.stevilo_oseb = stevilo_oseb
         self.lokacija = lokacija
         self.timeline = timeline
@@ -112,7 +112,7 @@ class Miza:
         return self.stevilo_oseb < miza2.stevilo_oseb
 
     def rezerviraj(self, rezervacija):
-        self.timeline.append(rezervacija.datum)
+        self.timeline[rezervacija.datum] = [rezervacija.datum + DOLZINA_REZERVACIJE]
         self.rezerviranost.append(rezervacija)
 
     def preveri_zasedenost(self):
@@ -120,7 +120,7 @@ class Miza:
         timeline = sorted(self.timeline)
         if timeline == []:
             return "Prosto"
-        if timeline[0] < sedaj and timeline[0] + DOLZINA_REZERVACIJE > sedaj:
+        if timeline[0] < sedaj and self.timeline[timeline[0]] > sedaj:
             if self.zasedenost:
                 stanje = "Zasedeno"
             else:
@@ -131,10 +131,11 @@ class Miza:
     
     def odstrani_rezervacijo(self, rezervacija):
         self.rezerviranost.remove(rezervacija)
-        self.timeline.remove(rezervacija.datum)
+        self.timeline.pop(rezervacija.datum)
 
     def naredi_zasedeno_brez_rezervacije(self):
-        self.timeline.append(datetime.datetime.today())
+        zdaj = datetime.datetime.today()
+        self.timeline[zdaj] = [zdaj + DOLZINA_REZERVACIJE]
         self.timeline.sort()
         self.zasedenost = True
 
@@ -146,18 +147,18 @@ class Miza:
         ##!!!!!!!!!!!self.timeline.pop(list(self.timeline.keys())[0])
 
     def naslednja_rezervacija(self):
-        if self.timeline == []:
+        if self.timeline == {}:
             return "Ni prihajajočih rezervacij"
         else:
             return f"Naslednja rezervacija je ob {self.timeline[0].__str__()}"
 
     def v_slovar(self):
         rezerviranost_spomin = [rezervacija.v_slovar() for rezervacija in self.rezerviranost]
-        return {"stevilo_oseb" : self.stevilo_oseb, "lokacija" : self.lokacija, "timeline" : [str(time) for time in self.timeline], "rezerviranost" : rezerviranost_spomin, "zasedenost" : self.zasedenost, "stevilka_mize" : self.stevilka}
+        return {"stevilo_oseb" : self.stevilo_oseb, "lokacija" : self.lokacija, "timeline" : {str(time) : str(self.timeline[time]) for time in self.timeline}, "rezerviranost" : rezerviranost_spomin, "zasedenost" : self.zasedenost, "stevilka_mize" : self.stevilka}
 
     @staticmethod
     def iz_slovarja_miza(slovar):
-        return Miza(slovar["stevilo_oseb"], slovar["lokacija"], [datetime.datetime.strptime(datum, "%Y-%m-%d %H:%M:%S") for datum in slovar["timeline"]], [Rezervacija.iz_slovarja_rezervacija(rezervacija) for rezervacija in slovar["rezerviranost"]], slovar["zasedenost"], slovar["stevilka_mize"])
+        return Miza(slovar["stevilo_oseb"], slovar["lokacija"], {datetime.datetime.strptime(datum, "%Y-%m-%d %H:%M:%S") : datetime.datetime.strptime(slovar["timeline"][datum], "%Y-%m-%d %H:%M:%S") for datum in slovar["timeline"]}, [Rezervacija.iz_slovarja_rezervacija(rezervacija) for rezervacija in slovar["rezerviranost"]], slovar["zasedenost"], slovar["stevilka_mize"])
 
 
 class Rezervacija:
