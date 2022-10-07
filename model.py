@@ -62,7 +62,7 @@ class Stanje:
     
     def najdi_mizo(self, miza_st):
         lokacija = self.lokacije[miza_st // 10]
-        miza = self.mize[lokacija][miza_st - (miza_st // 10) * 10 - 1]
+        miza = self.mize[lokacija][miza_st - (miza_st // 10) * 10]
         return miza
 
     def preverjanje_zasedenosti(self):
@@ -116,8 +116,18 @@ class Miza:
         self.rezerviranost.append(rezervacija)
 
     def preveri_zasedenost(self):
-        #preveri v timeinu ce je prosto
-        return self.zasedenost
+        sedaj = datetime.datetime.today()
+        timeline = sorted(self.timeline)
+        if timeline == []:
+            return "Prosto"
+        if timeline[0] < sedaj and timeline[0] + DOLZINA_REZERVACIJE > sedaj:
+            if self.zasedenost:
+                stanje = "Zasedeno"
+            else:
+                stanje = "Rezervacija še prihaja"
+        else:
+            stanje = "Prosto"
+        return stanje
     
     def odstrani_rezervacijo(self, rezervacija):
         self.rezerviranost.remove(rezervacija)
@@ -126,6 +136,9 @@ class Miza:
     def naredi_zasedeno_brez_rezervacije(self):
         self.timeline.append(datetime.datetime.today())
         self.timeline.sort()
+        self.zasedenost = True
+
+    def naredi_zasedeno(self):
         self.zasedenost = True
 
     def prosta(self):

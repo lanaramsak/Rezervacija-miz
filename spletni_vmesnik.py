@@ -8,7 +8,6 @@ def naredi_datoteko_restavraciji(ime_restavracije):
 
 stanje = Stanje.preberi_iz_datoteke("primer_stanja.json")
 
-
 @bottle.get("/")
 def zacetna_stran():
     return bottle.template(
@@ -93,15 +92,25 @@ def naredi_mizo(ime_lokacije):
 
 @bottle.post("/naredi_prosto/<katera_miza:int>/")
 def naredi_prosto(katera_miza):
-    lokacija = stanje.lokacije[katera_miza // 10]
-    miza = stanje.mize[lokacija][katera_miza - (katera_miza // 10) * 10]
+    miza = stanje.najdi_mizo(katera_miza)
     miza.prosta()
+    return bottle.redirect("/pregled_miz/")
+
+@bottle.post("/naredi_prispelo/<katera_miza:int>/")
+def naredi_zasedeno(katera_miza):
+    miza = stanje.najdi_mizo(katera_miza)
+    miza.naredi_zasedeno()
+    return bottle.redirect("/pregled_miz/")
+
+@bottle.post("/prekliči_rezervacijo/<katera_miza:int>/")
+def naredi_zasedeno(katera_miza):
+    miza = stanje.najdi_mizo(katera_miza)
+    miza.odstrani_rezervacijo(miza.rezerviranost[0])
     return bottle.redirect("/pregled_miz/")
 
 @bottle.post("/naredi_zasedeno/<katera_miza:int>/")
 def naredi_zasedeno(katera_miza):
-    lokacija = stanje.lokacije[katera_miza // 10]
-    miza = stanje.mize[lokacija][katera_miza - (katera_miza // 10) * 10]
+    miza = stanje.najdi_mizo(katera_miza)
     miza.naredi_zasedeno_brez_rezervacije()
     return bottle.redirect("/pregled_miz/")
 

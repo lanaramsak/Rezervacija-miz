@@ -4,7 +4,8 @@
     %for st_lokacije,lokacija in enumerate(katere_mize):
         <tr>
         %for st_miza, miza in enumerate(vse_mize[lokacija]):
-            %if miza.zasedenost:
+            %stanje = miza.preveri_zasedenost()
+            %if stanje == "Zasedeno":
             <td>
             <form method="POST" action="/naredi_prosto/{{st_lokacije}}{{st_miza}}/">
             <button>  
@@ -12,6 +13,21 @@
                 <br>
                 Zasedeno
             </button>
+            </form>
+            </td>
+            %elif stanje == "Rezervacija še prihaja":
+            <td>
+            <form method="POST" action="/naredi_prispelo/{{st_lokacije}}{{st_miza}}/">
+            <button>  
+                {{miza.stevilka}}
+                <br>
+                Rezervacija še prihaja
+            </button>
+            </form>
+            <form method="POST" action="/prekliči_rezervacijo/{{st_lokacije}}{{st_miza}}/">
+                <button>
+                    Prekliči
+                </button>
             </form>
             </td>
             %else:
