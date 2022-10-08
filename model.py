@@ -2,6 +2,9 @@ import datetime
 import json
 
 DOLZINA_REZERVACIJE = datetime.timedelta(hours = 2)
+PRIDEJO = 1
+BI_MORALI_BITI = 0
+
 
 class Stanje:
     def __init__(self, restavracija, geslo, mize={}, lokacije=[]):
@@ -57,8 +60,11 @@ class Stanje:
             for miza in self.mize[lokacija]:
                 for rezervacija in miza.rezerviranost:
                     if rezervacija.datum > datetime.datetime.today():
-                        vse_rezervacije += [(rezervacija, miza.stevilka)]
+                        vse_rezervacije.append((rezervacija, miza.stevilka, 0))
+                    elif rezervacija.opravljenost == False:
+                        vse_rezervacije.append((rezervacija, miza.stevilka, 1))
         return sorted(vse_rezervacije)
+    
     
     def najdi_mizo(self, miza_st):
         lokacija = self.lokacije[miza_st // 10]
@@ -135,16 +141,16 @@ class Miza:
 
     def naredi_zasedeno_brez_rezervacije(self):
         zdaj = datetime.datetime.today()
-        self.timeline[zdaj] = [zdaj + DOLZINA_REZERVACIJE]
-        self.timeline.sort()
+        self.timeline[zdaj] = zdaj + DOLZINA_REZERVACIJE
         self.zasedenost = True
 
     def naredi_zasedeno(self):
         self.zasedenost = True
+        sorted(self.rezerviranost)[0].prispela_rezervacija()
 
     def prosta(self):
         self.zasedenost = False
-        ##!!!!!!!!!!!self.timeline.pop(list(self.timeline.keys())[0])
+        self.timeline.pop((sorted(self.timeline))[0])
 
     def naslednja_rezervacija(self):
         if self.timeline == {}:
@@ -170,7 +176,12 @@ class Rezervacija:
         self.opravljenost = opravljenost
 
     def __lt__(self, other):
-        return self.datum < other.datum
+        if self.opravljenost == other.opravljenost:
+            return self.datum < other.datum
+        elif self.opravljenost == False:
+            return True
+        else:
+            return False
         
     def prispela_rezervacija(self):
         self.opravljenost = True

@@ -154,17 +154,16 @@ def dodaj_lokacijo():
 @bottle.post("/prispelo/<st_rezervacije:int>/")
 def prispelo(st_rezervacije):
     rezervacija = stanje.zbirka_rezervacij()[st_rezervacije][0]
-    miza_st = stanje.zbirka_rezervacij()[st_rezervacije][1]
+    miza_st = stanje.zbirka_rezervacij()[st_rezervacije][1] - 1
     miza = stanje.najdi_mizo(miza_st)
     rezervacija.prispela_rezervacija()
-    miza.zasedi()
-
+    miza.naredi_zasedeno()
     return bottle.redirect("/pregled_rezervacij/")
 
 @bottle.post("/preklici/<st_rezervacije:int>/")
 def preklici(st_rezervacije):
     rezervacija = stanje.zbirka_rezervacij()[st_rezervacije][0]
-    miza_st = stanje.zbirka_rezervacij()[st_rezervacije][1]
+    miza_st = stanje.zbirka_rezervacij()[st_rezervacije][1] - 1 
     miza = stanje.najdi_mizo(miza_st)
     miza.odstrani_rezervacijo(rezervacija)
     return bottle.redirect("/pregled_rezervacij/")

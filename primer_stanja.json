@@ -39,11 +39,11 @@
             }],
             "zasedenost" : false, 
             "stevilka_mize" : 11},
-            {"stevilo_oseb" : 3 , "lokacija" : "Notranjost", "timeline" : {"2022-10-7 17:25:00" : "2022-10-7 19:25:00" , "2022-10-30 19:00:00" : "2022-10-30 21:00:00" }, "rezerviranost" : 
+            {"stevilo_oseb" : 3 , "lokacija" : "Notranjost", "timeline" : {"2022-10-8 17:25:00" : "2022-10-8 19:25:00" , "2022-10-30 19:00:00" : "2022-10-30 21:00:00" }, "rezerviranost" : 
             [{
                 "ime" : "Eva", 
                 "stevilo_oseb" : 3, 
-                "datum" : "2022-10-7 17:25:00", 
+                "datum" : "2022-10-8 17:25:00", 
                 "lokacija" : "Notranjost", 
                 "opravljenost" : false
             },
