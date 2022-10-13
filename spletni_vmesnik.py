@@ -9,8 +9,16 @@ SIFRIRNI_KLJUC = "Očitno morm tle neki napisat"
 def ime_uporabnikove_datoteke(ime_restavracije):
     return f"stanja_restavracij/{ime_restavracije}.json"
 
-with open("uporabniki.json") as dat:
-    uporabniki = json.load(dat)
+def poglej_za_osebe():
+    with open("uporabniki.json", "w") as dat:
+        uporabniki = json.load(dat)
+    return uporabniki
+
+def shrani_med_osebe(uporabniki):
+    with open("uporabniki.json") as dat:
+        uporabniki = json.load(dat)
+        json.dump(uporabniki, dat, indent=4, ensure_ascii= False)
+    return uporabniki
 
 def stanje_restavracije():
     ime_restavracije = bottle.request.get_cookie("ime_restavracije", secret=SIFRIRNI_KLJUC)
@@ -31,41 +39,65 @@ def shrani_stanje_trenutnega_uporabnika(stanje):
     ime_datoteke = ime_uporabnikove_datoteke(ime_restavracije)
     stanje.shrani_v_datoteko(ime_datoteke)
 
-@bottle.get("/prijava/")
-def prijava_get():
-    return bottle.template(
-        "prijava.tpl",
-        ime_restavracije = "LOL",
-        vse_lokacije = ["nevem", "hello"]
-    )
-
 @bottle.post("/prijava/")
 def prijava_post():
+    uporabniki = poglej_za_osebe()
     ime_restavracije = bottle.request.forms.getunicode("ime_restavracije")
     geslo = bottle.request.forms.getunicode("geslo")
-    print(list(uporabniki.keys()))
-    print(ime_restavracije)
     if ime_restavracije in list(uporabniki.keys()):
         if uporabniki[ime_restavracije] == geslo:
             bottle.response.set_cookie("ime_restavracije", ime_restavracije, path="/", secret=SIFRIRNI_KLJUC)
-            bottle.redirect("/")
+            bottle.redirect("/pregled_miz/")
         else:
-            return "Vnesli ste napačno geslo"
+            return bottle.template(
+        "zacetna_stran.tpl",
+        napaka = "Napačno geslo"
+        )  
+
     else:
-        return "Račun s tem imenom še ne obstaja, posusite ponovno ali pa se registrirate" #tuki rabs potem se stran
+        return bottle.template(
+        "zacetna_stran.tpl",
+        napaka = "Račun s tem imenom ne obstaja, poskusite ponovno ali pa se registrirate"
+        )  
+
+@bottle.get("/registracija/")
+def registracija():
+    return bottle.template(
+        "pregled_rezervacij.tpl",     
+        vse_rezervacije = [],
+        ime_restavracije = "an",
+        vse_lokacije = [2,3],
+        )
+
+@bottle.post("/registracija/")
+def registracija_post():
+    ime_restavracije = bottle.request.forms.getunicode("ime_restavracije")
+    geslo = bottle.request.forms.getunicode("geslo")
+
+    if ime_restavracije in list(uporabniki.keys()):
+        return bottle.template(
+        "zacetna_stran.tpl",
+        napaka = "Račun s tem imenom že obstaja"
+        )   
+    else:
+        bottle.response.set_cookie("ime_restavracije", ime_restavracije, path="/", secret=SIFRIRNI_KLJUC)
+        uporabniki = poglej_za_osebe()
+        uporabniki[ime_restavracije] = geslo
+        shrani_med_osebe()
+        return bottle.redirect("/")
 
 @bottle.post("/odjava/")
 def odjava_post():
     bottle.response.delete_cookie("ime_restavracije")
-    bottle.redirect("/")
+    return bottle.redirect("/")
 
 @bottle.get("/")
 def zacetna_stran():
     stanje = stanje_restavracije()
     return bottle.template(
         "zacetna_stran.tpl",
-        ime_restavracije = stanje.restavracija,
-        vse_lokacije = stanje.lokacije,
+        napaka = None
+
     )
 
 @bottle.get("/pregled_rezervacij/")

@@ -1,1 +1,62 @@
-{}
+{
+    "restavracija" : "Capriccio", 
+    "geslo" : "geslo", 
+    "mize" : 
+        {
+        "Vrt" : [
+            {"stevilo_oseb" : 4, "lokacija" : "Vrt", "timeline" : {"2022-10-20 15:20:00" : "2022-10-20 17:20:00", "2022-10-20 12:00:00" : "2022-10-20 14:00:00"}, "rezerviranost" : 
+            [{
+                "ime" : "Ana", 
+                "stevilo_oseb" : 4, 
+                "datum" : "2022-10-20 15:20:00", 
+                "lokacija" : "Vrt", 
+                "opravljenost" : false
+            },
+            {
+                "ime" : "Nika", 
+                "stevilo_oseb" : 4, 
+                "datum" : "2022-10-20 12:00:00", 
+                "lokacija" : "Vrt", 
+                "opravljenost" : false
+            }],
+            "zasedenost" : false, 
+            "stevilka_mize" : 1 }],
+        "Notranjost" : [
+            {"stevilo_oseb" : 2, "lokacija" : "Notranjost", "timeline" : {"2022-10-21 14:25:00" : "2022-10-21 16:25:00", "2022-10-21 19:00:00" : "2022-10-21 21:00:00"}, "rezerviranost" : 
+            [{
+                "ime" : "Carlos", 
+                "stevilo_oseb" : 2, 
+                "datum" : "2022-10-21 14:25:00", 
+                "lokacija" : "Notranjost", 
+                "opravljenost" : false
+            },
+            {
+                "ime" : "Lana", 
+                "stevilo_oseb" : 2, 
+                "datum" : "2022-10-21 19:00:00", 
+                "lokacija" : "Notranjost", 
+                "opravljenost" : false
+            }],
+            "zasedenost" : false, 
+            "stevilka_mize" : 11},
+            {"stevilo_oseb" : 3 , "lokacija" : "Notranjost", "timeline" : {"2022-10-8 17:25:00" : "2022-10-8 19:25:00" , "2022-10-30 19:00:00" : "2022-10-30 21:00:00" }, "rezerviranost" : 
+            [{
+                "ime" : "Eva", 
+                "stevilo_oseb" : 3, 
+                "datum" : "2022-10-8 17:25:00", 
+                "lokacija" : "Notranjost", 
+                "opravljenost" : false
+            },
+            {
+                "ime" : "Zala", 
+                "stevilo_oseb" : 2, 
+                "datum" : "2022-10-30 19:00:00", 
+                "lokacija" : "Notranjost", 
+                "opravljenost" : false
+            }],
+            "zasedenost" : false, 
+            "stevilka_mize" : 12}
+        ]
+        }, 
+    "lokacije" : ["Vrt", "Notranjost"]
+}

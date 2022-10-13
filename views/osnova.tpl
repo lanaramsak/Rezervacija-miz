@@ -13,6 +13,22 @@
 
 <h1 class="title"> Restavracija {{ime_restavracije}} </h1>
 
+<nav class="navbar">
+  <div class="container">
+    <div id="navMenu" class="navbar-menu">
+
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-dark">Github</a>
+            <a class="button is-link">Odjava</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
 <div class="column is-one-third">
     <aside class="menu">
         <p class="menu-label">
@@ -35,6 +51,13 @@
                         </li>
                     
                 </ul>
+            </li>
+            <li>
+                <form method="POST" action="/odjava/">
+                    <div class="button">
+                        Odjavi se
+                    </div>
+                </form>
             </li>
         </ul>
     </aside>

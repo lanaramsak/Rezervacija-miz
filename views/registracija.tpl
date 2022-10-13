@@ -1,7 +1,7 @@
 % rebase('osnova.tpl')
 <form method="POST">
     <div class="field">
-        <label class="label">Ime restavracije</label>
+        <label class="label">Uporabniško ime</label>
         <div class="control has-icons-left">
             <input class="input" name="ime_restavracije" type="text" placeholder="ime restavracije">
             <span class="icon is-small is-left">
@@ -23,7 +23,7 @@
     </div>
     <div class="field is-grouped">
         <div class="control">
-            <button class="button is-link">Prijavi se</button>
+            <button class="button is-link">Registriraj se</button>
         </div>
     </div>
 </form>
