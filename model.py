@@ -145,7 +145,7 @@ class Miza:
     def naredi_zasedeno_brez_rezervacije(self):
         zdaj = datetime.datetime.today().replace(microsecond=0)
         if list(self.timeline.keys())[0] < zdaj + DOLZINA_REZERVACIJE:
-            konec = self.timeline.keys()[0]
+            konec = list(self.timeline.keys())[0]
         else:
             konec = zdaj + DOLZINA_REZERVACIJE
         self.timeline[zdaj] = konec

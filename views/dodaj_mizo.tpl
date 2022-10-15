@@ -1,3 +1,5 @@
+% rebase('osnova.tpl', menu = False)
+
 <h1 class="title is-1"> Tu dodamo mizo</h1>
 
 <form class="box" method="POST" action="/nova_miza/">

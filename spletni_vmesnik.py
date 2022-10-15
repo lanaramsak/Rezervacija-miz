@@ -10,12 +10,12 @@ def ime_uporabnikove_datoteke(ime_restavracije):
     return f"stanja_restavracij/{ime_restavracije}.json"
 
 def poglej_za_osebe():
-    with open("uporabniki.json", "w") as dat:
+    with open("uporabniki.json") as dat:
         uporabniki = json.load(dat)
     return uporabniki
 
 def shrani_med_osebe(uporabniki):
-    with open("uporabniki.json") as dat:
+    with open("uporabniki.json", "w") as dat:
         uporabniki = json.load(dat)
         json.dump(uporabniki, dat, indent=4, ensure_ascii= False)
     return uporabniki
@@ -130,7 +130,6 @@ def pregled_rezervacij():
         ime_restavracije = stanje.restavracija,
         vse_lokacije = stanje.lokacije,
         lokacije_za_mize = stanje.lokacije,
-        ime_lokacije = ""
         )
 
 @bottle.get("/pregled_miz/<ime_lokacije>/")
@@ -142,8 +141,6 @@ def pregled_rezervacij(ime_lokacije):
         vse_mize = stanje.mize,
         ime_restavracije = stanje.restavracija,
         vse_lokacije = stanje.lokacije,
-        lokacije_za_mize  = [ime_lokacije],
-        ime_lokacije = ime_lokacije
         )
 
 @bottle.get("/nova_miza/")
@@ -257,7 +254,7 @@ def dodaj_lokacijo():
         ime_restavracije = stanje.restavracija,
         vse_lokacije = stanje.lokacije)
     else:
-        return bottle.redirect("/")
+        return bottle.redirect("/pregled_miz/")
     
 @bottle.post("/prispelo/<st_rezervacije:int>/")
 def prispelo(st_rezervacije):

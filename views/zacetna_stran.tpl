@@ -20,7 +20,7 @@
         <div class="hero-body">
           <div class="container has-text-centered">
             <h1 class="subtitle"><i class="fa-solid fa-table-list"></i></h1>
-            <h2 class="title">Nella</h2>
+            <h2 class="title is-large">Nella</h2>
             <h1 class="subtitle profession">Organizacija rezervacij še nikoli ni bila tako preprosta.</h1>
           </div>
         </div>
@@ -55,7 +55,7 @@
                 Vašo restavracijo lahko preprosto prenesete v elektronsko obliko. 
                 Mize lahko uredite glede na njihovo lokacijo in število gostov, ki jih sprejmejo. 
                 Tako bo Nella ob dodani rezervacij sama preračunala kam lahko posede ljudi in vam to tudi sporočila. 
-                Vse kar ostane vam je da obkljukate ob prihodu rezervacije. 
+                Vse kar ostane vam, je da ob prihodu rezervacije to označite.
               </p>
               <br />
             </div>
@@ -127,18 +127,6 @@
 
     </div>
     <!-- End Footer -->
-
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="../js/showcase.js"></script>
-    <link href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" rel="stylesheet">
-    <script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script>
-    <script>
-      AOS.init({
-        easing: "ease-out",
-        duration: 800,
-      });
-    </script>
-
+    
   </body>
 </html>

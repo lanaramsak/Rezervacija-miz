@@ -11,63 +11,67 @@
 
 <body>
 
-<h1 class="title"> Restavracija {{ime_restavracije}} </h1>
+<br><br>
 
-<nav class="navbar">
+<nav class="navbar is-info">
   <div class="container">
     <div id="navMenu" class="navbar-menu">
-
-      <div class="navbar-end">
-        <div class="navbar-item">
-          <div class="buttons">
-            <a class="button is-dark">Github</a>
-            <a class="button is-link">Odjava</a>
-          </div>
+        <div class="navbar-brand">
+            <h1 class="title is-large is-white">NELLA</h1>
         </div>
-      </div>
+
+        <div class="navbar-end">
+            <div class="navbar-item">
+            <div class="buttons">
+                <a class="button is-dark">Github</a>
+                <form method="POST" action="/odjava/">
+                    <button class="button is-link">Odjava</button>
+                </form>
+            </div>
+            </div>
+        </div>
     </div>
   </div>
 </nav>
 
-<div class="column is-one-third">
-    <aside class="menu">
-        <p class="menu-label">
-          Ne vem še kaj tukaj napisati
-        </p>
-        <ul class="menu-list">
-            <li><a href="/pregled_rezervacij/">Pregled prihajajočih rezervacij </a>
-            <li><a href="/pregled_preteklih_rezervacij/">Pregled preteklih rezervacij </a>
-            <a href="/pregled_miz/">Pregled vseh miz</a>
-                <ul>
-                    %for lokacija in vse_lokacije:
-                        <li><a href="/pregled_miz/{{lokacija}}/">{{lokacija}}</a></li>
-                    %end
-                        <li>
-                            <a>
-                            <form method="POST" action="/dodaj_lokacijo/">
-                                <input type="text" id="lokacija" name="lokacija" placeholder= "Ime lokacije..." >
-                            </form>
-                            </a>
-                        </li>
-                    
+<section class="section">
+    <div class="container">
+        <div class="columns">
+        <div class="column is-3">
+            %if menu:
+            <aside class="menu">
+                <p class="menu-label">
+                RESTAVRACIJA {{ime_restavracije}}
+                </p>
+                <ul class="menu-list">
+                    <li><a href="/pregled_rezervacij/">Pregled prihajajočih rezervacij </a></li>
+                    <li><a href="/pregled_preteklih_rezervacij/">Pregled preteklih rezervacij </a></li>
+                    <li> <a href="/pregled_miz/">Pregled vseh miz</a>
+                        <ul>
+                            %for lokacija in vse_lokacije:
+                                <li><a href="/pregled_miz/{{lokacija}}/">{{lokacija}}</a></li>
+                            %end
+                                <li>
+                                    <a>
+                                    <form method="POST" action="/dodaj_lokacijo/">
+                                        <input type="text" id="lokacija" name="lokacija" placeholder= "Ime lokacije..." >
+                                    </form>
+                                    </a>
+                                </li>
+                            
+                        </ul>
+                    </li>
                 </ul>
-            </li>
-            <li>
-                <form method="POST" action="/odjava/">
-                    <div class="button">
-                        Odjavi se
-                    </div>
-                </form>
-            </li>
-        </ul>
-    </aside>
-</div>
-
-
-    {{!base}}
+            </aside>
+            %end
+        </div>
+        <div class="column is-9">
+            {{!base}}
+        </div>
+        </div>
+    </div>
+</section>
 
 </body>
-
-
 
 </html>

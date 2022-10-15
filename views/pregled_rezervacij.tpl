@@ -1,4 +1,4 @@
-% rebase('osnova.tpl', ime_strani = "pregled_rezervacij")
+% rebase('osnova.tpl', ime_strani = "pregled_rezervacij", menu = True)
 
 <div class="column is-one-half">
 <table class="table is-bordered is-hoverable"> 

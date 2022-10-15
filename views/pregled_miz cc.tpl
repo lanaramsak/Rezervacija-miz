@@ -1,46 +1,51 @@
 % rebase('osnova.tpl', ime_strani = "pregled_miz", menu = True)
 
-<p class="control">
+<table>
     %for st_lokacije,lokacija in enumerate(vse_lokacije):
         %if lokacija in katere_mize:
-            <div class="box">
+            <tr>
             %for st_miza, miza in enumerate(vse_mize[lokacija]):
                 %stanje = miza.preveri_zasedenost()
                 %if stanje == "Zasedeno":
+                <td>
                 <form method="POST" action="/naredi_prosto/{{st_lokacije}}{{st_miza}}/">
-                    <button class="button is-large">  
+                <button class="button is-large">  
                     {{miza.stevilka}}
                     <br>
                     Zasedeno
-                    </button>
+                </button>
                 </form>
+                </td>
                 %elif stanje == "Rezervacija še prihaja":
+                <td>
                 <form method="POST" action="/naredi_prispelo/{{st_lokacije}}{{st_miza}}/">
-                    <button class="button is-large">  
+                <button class="button is-large">  
                     {{miza.stevilka}}
                     <br>
                     Rezervacija še prihaja
-                    </button>
+                </button>
                 </form>
                 <form method="POST" action="/prekliči_rezervacijo/{{st_lokacije}}{{st_miza}}/">
                     <button>
                         Prekliči
                     </button>
                 </form>
+                </td>
                 %else:
+                <td>
                 <form method="POST" action="/naredi_zasedeno/{{st_lokacije}}{{st_miza}}/">
-                    <button class="button is-large is-square">  
+                <button class="button is-large is-square">  
                     {{miza.stevilka}} 
                     <br>
                     Prosto
-                    </button>
+                </button>
                 </form>
+                </td>
                 %end
             %end
         %end
-            </div>
+        </tr>
     %end
-</p>
+</table>
 
 <a href="/nova_miza/" class="button">DODAJ NOVO MIZO</a>
-

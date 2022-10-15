@@ -1,4 +1,4 @@
-% rebase('osnova.tpl')
+% rebase('osnova.tpl', menu = False)
 <form method="POST">
     <div class="field">
         <label class="label">Uporabniško ime</label>
