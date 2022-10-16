@@ -179,7 +179,7 @@ def naredi_mizo(ime_lokacije):
     miza = Miza(st_oseb, lokacija)
     stanje.dodaj_mizo(miza)
     shrani_stanje_trenutnega_uporabnika(stanje)
-    return bottle.redirect("/pregled_miz/<ime_lokacije>/")
+    return bottle.redirect(f"/pregled_miz/{ime_lokacije}/")
 
 @bottle.post("/naredi_prosto/<katera_miza:int>/")
 def naredi_prosto(katera_miza):
@@ -210,6 +210,16 @@ def naredi_zasedeno(katera_miza):
     stanje = stanje_restavracije()
     miza = stanje.najdi_mizo(katera_miza)
     miza.naredi_zasedeno_brez_rezervacije()
+    shrani_stanje_trenutnega_uporabnika(stanje)
+    return bottle.redirect("/pregled_miz/")
+
+@bottle.post("/brisi_mizo/<katera_miza:int>/")
+def brisi_mizo(katera_miza):
+    print(katera_miza)
+    stanje = stanje_restavracije()
+    miza = stanje.najdi_mizo(katera_miza)
+    print(miza.stevilka)
+    stanje.mize[miza.lokacija].remove(miza)
     shrani_stanje_trenutnega_uporabnika(stanje)
     return bottle.redirect("/pregled_miz/")
 

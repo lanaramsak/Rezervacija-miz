@@ -1,3 +1,14 @@
+% zavihki = [
+%     'Pregled rezervacij',
+%     'Pregled preteklih rezervacij',
+%     'Pregled miz'
+% ]
+% oznaka_zavihka = {
+%     'Pregled rezervacij': 'pregled_rezervacij',
+%     'Pregled preteklih rezervacij': 'pregled_preteklih_rezervacij',
+%     'Pregled miz': 'pregled_miz'
+% }
+
 <!DOCTYPE html>
 <html>
 
@@ -6,6 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src = "https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
     <title> Rezervacije </title>
 </head>
 
@@ -23,7 +35,7 @@
         <div class="navbar-end">
             <div class="navbar-item">
             <div class="buttons">
-                <a class="button is-dark">Github</a>
+                <a class="button is-dark" action="https://github.com/lanaramsak">Github</a>
                 <form method="POST" action="/odjava/">
                     <button class="button is-link">Odjava</button>
                 </form>
@@ -44,9 +56,9 @@
                 RESTAVRACIJA {{ime_restavracije}}
                 </p>
                 <ul class="menu-list">
-                    <li><a href="/pregled_rezervacij/">Pregled prihajajočih rezervacij </a></li>
-                    <li><a href="/pregled_preteklih_rezervacij/">Pregled preteklih rezervacij </a></li>
-                    <li> <a href="/pregled_miz/">Pregled vseh miz</a>
+                    <li><a href="/pregled_rezervacij/">Pregled rezervacij </a></li>
+                    <li><a href="/pregled_preteklih_rezervacij/">Pregled preteklih rezervacij</a></li>
+                    <li> <a class="is-active" href="/pregled_miz/">Pregled vseh miz</a>
                         <ul>
                             %for lokacija in vse_lokacije:
                                 <li>

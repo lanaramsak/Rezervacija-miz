@@ -15,9 +15,13 @@ class Stanje:
 
     def dodaj_rezervacijo(self, rezervacija):
         datum = rezervacija.datum
+        print(self.mize[rezervacija.lokacija])
+        print(self.mize[rezervacija.lokacija][0].stevilo_oseb < self.mize[rezervacija.lokacija][1].stevilo_oseb)
+        print(self.mize[rezervacija.lokacija][0] < self.mize[rezervacija.lokacija][1])
         for miza in sorted(self.mize[rezervacija.lokacija]):
             if rezervacija.stevilo_oseb <= miza.stevilo_oseb:
                 if miza.timeline == {}:
+                    miza.rezerviraj(rezervacija)
                     return True
                 nov_seznam_ur = miza.timeline.keys() + [datum]
                 nov_seznam_ur.sort()
@@ -114,11 +118,14 @@ class Miza:
         self.rezerviranost = rezerviranost
         self.stevilka = stevilka
 
-    def __lt___(self, miza2):
+    def __eq__(self, miza2):
+        return self.stevilo_oseb == miza2.stevilo_oseb
+
+    def __lt__(self, miza2):
         return self.stevilo_oseb < miza2.stevilo_oseb
 
     def rezerviraj(self, rezervacija):
-        self.timeline[rezervacija.datum] = [rezervacija.datum + DOLZINA_REZERVACIJE]
+        self.timeline[rezervacija.datum] = rezervacija.datum + DOLZINA_REZERVACIJE
         self.rezerviranost.append(rezervacija)
 
     def preveri_zasedenost(self):
@@ -175,7 +182,9 @@ class Miza:
 
     def v_slovar(self):
         rezerviranost_spomin = [rezervacija.v_slovar() for rezervacija in self.rezerviranost]
-        return {"stevilo_oseb" : self.stevilo_oseb, "lokacija" : self.lokacija, "timeline" : {str(time) : str(self.timeline[time]) for time in self.timeline}, "rezerviranost" : rezerviranost_spomin, "zasedenost" : self.zasedenost, "stevilka_mize" : self.stevilka}
+        return {"stevilo_oseb" : self.stevilo_oseb, "lokacija" : self.lokacija,
+         "timeline" : {str(time) : str(self.timeline[time]) for time in self.timeline}, 
+         "rezerviranost" : rezerviranost_spomin, "zasedenost" : self.zasedenost, "stevilka_mize" : self.stevilka}
 
     @staticmethod
     def iz_slovarja_miza(slovar):
