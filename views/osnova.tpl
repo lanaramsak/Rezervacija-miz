@@ -49,7 +49,22 @@
                     <li> <a href="/pregled_miz/">Pregled vseh miz</a>
                         <ul>
                             %for lokacija in vse_lokacije:
-                                <li><a href="/pregled_miz/{{lokacija}}/">{{lokacija}}</a></li>
+                                <li>
+                                    <div class="level">
+                                            <div class="level-left">
+                                                <a href="/pregled_miz/{{lokacija}}/">
+                                                <div class="level-item">
+                                                    {{lokacija}}
+                                                </div>
+                                                </a>
+                                            </div>
+                                            <div class="level-right">
+                                                <div class="level-item">
+                                                    <a href="/izbrisi_lokacijo/{{lokacija}}/"><button class="delete"></button></a>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </li>
                             %end
                                 <li>
                                     <a>

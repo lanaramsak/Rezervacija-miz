@@ -16,21 +16,20 @@ def poglej_za_osebe():
 
 def shrani_med_osebe(uporabniki):
     with open("uporabniki.json", "w") as dat:
-        uporabniki = json.load(dat)
         json.dump(uporabniki, dat, indent=4, ensure_ascii= False)
-    return uporabniki
 
 def stanje_restavracije():
     ime_restavracije = bottle.request.get_cookie("ime_restavracije", secret=SIFRIRNI_KLJUC)
     if ime_restavracije == None:
-        bottle.redirect("/prijava/")
+        return bottle.redirect("/")
     # else:
     #     uporabnisko_ime = uporabnisko_ime
     ime_datoteke = ime_uporabnikove_datoteke(ime_restavracije)
     try:
         stanje = Stanje.preberi_iz_datoteke(ime_datoteke)
     except FileNotFoundError:
-        stanje = Stanje.preberi_iz_datoteke("primer-stanja.json")
+        stanje = Stanje.preberi_iz_datoteke("stanja_restavracij/zacetno_stanje.json")
+        stanje.restavracija = ime_restavracije
         stanje.shrani_v_datoteko(ime_datoteke)
     return stanje
 
@@ -63,28 +62,27 @@ def prijava_post():
 @bottle.get("/registracija/")
 def registracija():
     return bottle.template(
-        "pregled_rezervacij.tpl",     
-        vse_rezervacije = [],
-        ime_restavracije = "an",
-        vse_lokacije = [2,3],
+        "registracija.tpl",
+        napaka = None
         )
 
 @bottle.post("/registracija/")
 def registracija_post():
     ime_restavracije = bottle.request.forms.getunicode("ime_restavracije")
     geslo = bottle.request.forms.getunicode("geslo")
-
+    uporabniki = poglej_za_osebe()
     if ime_restavracije in list(uporabniki.keys()):
         return bottle.template(
-        "zacetna_stran.tpl",
+        "registracija.tpl",
         napaka = "Račun s tem imenom že obstaja"
         )   
     else:
         bottle.response.set_cookie("ime_restavracije", ime_restavracije, path="/", secret=SIFRIRNI_KLJUC)
         uporabniki = poglej_za_osebe()
         uporabniki[ime_restavracije] = geslo
-        shrani_med_osebe()
-        return bottle.redirect("/")
+        shrani_med_osebe(uporabniki)
+
+        return bottle.redirect("/pregled_miz/")
 
 @bottle.post("/odjava/")
 def odjava_post():
@@ -157,8 +155,7 @@ def dodaj_mizo(ime_lokacije):
     stanje = stanje_restavracije()
     return bottle.template(
         "dodaj_mizo.tpl", 
-        vse_lokacije = [ime_lokacije],
-        ime_lokacije = ime_lokacije
+        vse_lokacije = [ime_lokacije]
     )
 
 @bottle.post("/nova_miza/")
@@ -166,6 +163,8 @@ def naredi_mizo():
     stanje = stanje_restavracije()
     st_oseb = int(bottle.request.forms.getunicode("st_oseb"))
     lokacija = bottle.request.forms.getunicode("lokacija")
+    if len(stanje.lokacije) == 1:
+        lokacija = stanje.lokacije[0]
     miza = Miza(st_oseb, lokacija)
     stanje.dodaj_mizo(miza)
     shrani_stanje_trenutnega_uporabnika(stanje)
@@ -176,6 +175,7 @@ def naredi_mizo(ime_lokacije):
     stanje = stanje_restavracije()
     st_oseb = int(bottle.request.forms.getunicode("st_oseb"))
     lokacija = ime_lokacije
+    print(lokacija)
     miza = Miza(st_oseb, lokacija)
     stanje.dodaj_mizo(miza)
     shrani_stanje_trenutnega_uporabnika(stanje)
@@ -255,6 +255,22 @@ def dodaj_lokacijo():
         vse_lokacije = stanje.lokacije)
     else:
         return bottle.redirect("/pregled_miz/")
+
+@bottle.get("/izbrisi_lokacijo/<lokacija>/")
+def opozorilo_izbris_lokacije(lokacija):
+    stanje = stanje_restavracije()
+    return bottle.template("opozorilo_mize.tpl",
+            vse_lokacije = stanje.lokacije,
+            ime_restavracije = stanje.restavracija
+    )
+
+@bottle.post("/izbrisi_lokacijo/<lokacija>/")
+def izbrisi_lokacijo(lokacija):
+    stanje = stanje_restavracije()
+    stanje.lokacije.remove(lokacija)
+    stanje.mize.pop(lokacija)
+    shrani_stanje_trenutnega_uporabnika(stanje)
+    return bottle.redirect("/pregled_miz/")
     
 @bottle.post("/prispelo/<st_rezervacije:int>/")
 def prispelo(st_rezervacije):
@@ -262,8 +278,7 @@ def prispelo(st_rezervacije):
     rezervacija = stanje.zbirka_rezervacij()[st_rezervacije][0]
     miza_st = stanje.zbirka_rezervacij()[st_rezervacije][1] - 1
     miza = stanje.najdi_mizo(miza_st)
-    rezervacija.prispela_rezervacija()
-    miza.naredi_zasedeno()
+    miza.naredi_zasedeno(rezervacija)
     shrani_stanje_trenutnega_uporabnika(stanje)
     return bottle.redirect("/pregled_rezervacij/")
 

@@ -32,6 +32,54 @@
 
     <br><br><br><br>  <br><br><br><br>  <br><br><br><br>
 
+    <div class="section-dark resume" id="prijava">
+      <div class="container">
+        <div
+          class="columns is-multiline"
+          data-aos="fade-in"
+          data-aos-easing="linear"
+        >
+          <div class="column is-12 about-me">
+            <h1 class="title has-text-centered section-title">
+              Prijava
+            </h1>
+          </div>
+          <div class="column is-10 has-text-centered is-offset-1">
+              <hr class="login-hr">
+                      <form method="POST" action="/prijava/">
+                          <div class="field">
+                              <div class="control">
+                                  <input class="input is-medium" type="text" placeholder="Ime restavracije" name="ime_restavracije" required>
+                              </div>
+                          </div>
+
+                          <div class="field">
+                              <div class="control">
+                                  <input class="input is-medium" type="password" placeholder="Geslo" name="geslo" required>
+                              </div>
+                          </div>
+                          <div class="field">
+                              %if napaka:
+                                  <p class="help is-danger">{{ napaka }}</p>
+                              %end
+                          </div>
+                          <nav class="level">
+                              <div class="level-left">
+                                  <div class="level-item">
+                                      <input class="button is-info is-medium is-10" type="submit" value="Prijavi se">
+                                  </div>
+                                  <div class="level-item">
+                                  <a class="button is-block is-medium is-10" href="/registracija/">Registracija</a>
+                                  </div>
+                              </div>
+                          </nav>
+                      </form>
+                  </div>
+              
+          </div>
+      </div>
+    </div>
+
     <!-- Begin Main Content -->
     <div class="main-content">
       <!-- Begin O-Programu Section -->
@@ -70,57 +118,9 @@
           </div>
         </div>
       </div>
-      <!-- End About Me Content -->
+    </div>
 
       <br><br><br><br>
-
-      <div class="section-dark resume" id="prijava">
-        <div class="container">
-          <div
-            class="columns is-multiline"
-            data-aos="fade-in"
-            data-aos-easing="linear"
-          >
-            <div class="column is-12 about-me">
-              <h1 class="title has-text-centered section-title">
-                Prijava
-              </h1>
-            </div>
-            <div class="column is-10 has-text-centered is-offset-1">
-                <hr class="login-hr">
-                        <form method="POST" action="/prijava/">
-                            <div class="field">
-                                <div class="control">
-                                    <input class="input is-medium" type="text" placeholder="Ime restavracije" name="ime_restavracije">
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <div class="control">
-                                    <input class="input is-medium" type="password" placeholder="Geslo" name="geslo">
-                                </div>
-                            </div>
-                            <div class="field">
-                                %if napaka:
-                                    <p class="help is-danger">{{ napaka }}</p>
-                                %end
-                            </div>
-                            <nav class="level">
-                                <div class="level-left">
-                                    <div class="level-item">
-                                        <input class="button is-link is-info is-medium is-10" type="submit" value="Prijavi se">
-                                    </div>
-                                    <div class="level-item">
-                                    <a class="button is-block is-medium is-10" href="/registracija/">Registracija</a>
-                                    </div>
-                                </div>
-                            </nav>
-                        </form>
-                    </div>
-                
-            </div>
-        </div>
-      </div>
       
     <!-- Begin Footer -->
     <div class="footer">

@@ -15,7 +15,7 @@ class Stanje:
 
     def dodaj_rezervacijo(self, rezervacija):
         datum = rezervacija.datum
-        for miza in self.mize[rezervacija.lokacija].sort():
+        for miza in sorted(self.mize[rezervacija.lokacija]):
             if rezervacija.stevilo_oseb <= miza.stevilo_oseb:
                 if miza.timeline == {}:
                     return True
@@ -129,7 +129,7 @@ class Miza:
         print(self.stevilka)
         print(timeline[0])
         print(self.timeline[timeline[0]])
-        if timeline[0] < sedaj and self.timeline[timeline[0]] > sedaj:
+        if timeline[0] <= sedaj and self.timeline[timeline[0]] >= sedaj:
             if self.zasedenost:
                 stanje = "Zasedeno"
             else:
@@ -143,21 +143,29 @@ class Miza:
         self.timeline.pop(rezervacija.datum)
 
     def naredi_zasedeno_brez_rezervacije(self):
+        print("delam zasedeno")
         zdaj = datetime.datetime.today().replace(microsecond=0)
-        if list(self.timeline.keys())[0] < zdaj + DOLZINA_REZERVACIJE:
+        if self.timeline == {}:
+            konec = zdaj + DOLZINA_REZERVACIJE
+        elif list(self.timeline.keys())[0] < (zdaj + DOLZINA_REZERVACIJE):
             konec = list(self.timeline.keys())[0]
         else:
             konec = zdaj + DOLZINA_REZERVACIJE
         self.timeline[zdaj] = konec
         self.zasedenost = True
 
-    def naredi_zasedeno(self):
-        self.zasedenost = True
-        sorted(self.rezerviranost)[0].prispela_rezervacija()
+    def naredi_zasedeno(self,rezervacija):
+        self.timeline.pop(rezervacija.datum)
+        self.naredi_zasedeno_brez_rezervacije()
+        rezervacija.opravljenost = True
+        rezervacija.datum = datetime.datetime.today().replace(microsecond=0)
 
     def prosta(self):
         self.zasedenost = False
-        self.timeline.pop((sorted(self.timeline))[0])
+        print("delam prosto")
+        print(sorted(self.timeline)[0])
+        self.timeline.pop(sorted(self.timeline)[0])
+        print(self.timeline)
 
     def naslednja_rezervacija(self):
         if self.timeline == {}:
@@ -189,10 +197,6 @@ class Rezervacija:
             return True
         else:
             return False
-        
-    def prispela_rezervacija(self):
-        self.opravljenost = True
-        self.datum = datetime.datetime.today().replace(microsecond=0)
 
     def v_slovar(self):
         return {"ime" : self.ime, "stevilo_oseb" : self.stevilo_oseb, "datum" : str(self.datum), "lokacija" : self.lokacija, "opravljenost" : self.opravljenost}
@@ -200,5 +204,3 @@ class Rezervacija:
     @staticmethod
     def iz_slovarja_rezervacija(slovar):
         return Rezervacija(slovar["ime"], slovar["stevilo_oseb"], datetime.datetime.strptime(slovar["datum"], "%Y-%m-%d %H:%M:%S"), slovar["lokacija"], slovar["opravljenost"]) 
-
-

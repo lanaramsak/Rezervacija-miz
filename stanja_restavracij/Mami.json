@@ -1,0 +1,21 @@
+{
+    "restavracija": "Mami",
+    "geslo": "//",
+    "mize": {
+        "Vrt": [
+            {
+                "stevilo_oseb": 4,
+                "lokacija": "Vrt",
+                "timeline": {},
+                "rezerviranost": [],
+                "zasedenost": false,
+                "stevilka_mize": 1
+            }
+        ],
+        "Notranjost": []
+    },
+    "lokacije": [
+        "Vrt",
+        "Notranjost"
+    ]
+}
