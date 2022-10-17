@@ -15,15 +15,12 @@ class Stanje:
 
     def dodaj_rezervacijo(self, rezervacija):
         datum = rezervacija.datum
-        print(self.mize[rezervacija.lokacija])
-        print(self.mize[rezervacija.lokacija][0].stevilo_oseb < self.mize[rezervacija.lokacija][1].stevilo_oseb)
-        print(self.mize[rezervacija.lokacija][0] < self.mize[rezervacija.lokacija][1])
         for miza in sorted(self.mize[rezervacija.lokacija]):
             if rezervacija.stevilo_oseb <= miza.stevilo_oseb:
                 if miza.timeline == {}:
                     miza.rezerviraj(rezervacija)
                     return True
-                nov_seznam_ur = miza.timeline.keys() + [datum]
+                nov_seznam_ur = list(miza.timeline.keys()) + [datum]
                 nov_seznam_ur.sort()
                 index = nov_seznam_ur.index(datum)
                 if index == len(nov_seznam_ur) - 1:

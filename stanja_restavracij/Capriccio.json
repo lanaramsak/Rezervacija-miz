@@ -7,15 +7,15 @@
                 "stevilo_oseb": 4,
                 "lokacija": "Vrt",
                 "timeline": {
-                    "2022-10-20 15:20:00": "2022-10-20 17:20:00"
+                    "2022-10-17 14:07:53": "2022-10-17 16:07:53"
                 },
                 "rezerviranost": [
                     {
                         "ime": "Ana",
                         "stevilo_oseb": 4,
-                        "datum": "2022-10-20 15:20:00",
+                        "datum": "2022-10-17 14:07:53",
                         "lokacija": "Vrt",
-                        "opravljenost": false
+                        "opravljenost": true
                     },
                     {
                         "ime": "Nika",
@@ -25,14 +25,32 @@
                         "opravljenost": true
                     }
                 ],
-                "zasedenost": false,
+                "zasedenost": true,
                 "stevilka_mize": 1
             },
             {
                 "stevilo_oseb": 4,
                 "lokacija": "Vrt",
-                "timeline": {},
-                "rezerviranost": [],
+                "timeline": {
+                    "2022-10-17 14:00:00": "2022-10-17 16:00:00",
+                    "2022-10-17 16:00:00": "2022-10-17 18:00:00"
+                },
+                "rezerviranost": [
+                    {
+                        "ime": "Nika",
+                        "stevilo_oseb": 4,
+                        "datum": "2022-10-17 14:00:00",
+                        "lokacija": "Vrt",
+                        "opravljenost": false
+                    },
+                    {
+                        "ime": "Gal",
+                        "stevilo_oseb": 4,
+                        "datum": "2022-10-17 16:00:00",
+                        "lokacija": "Vrt",
+                        "opravljenost": false
+                    }
+                ],
                 "zasedenost": false,
                 "stevilka_mize": 2
             }

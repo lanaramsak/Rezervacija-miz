@@ -6,38 +6,24 @@
     <tr> <th>Rezervacija</th> <th>Število oseb</th> <th>Ura</th> <th>Miza</th>  <th>Prekliči</th>  </tr>
     % for id_rezervacije, (rezervacija, miza, prispelost) in enumerate(vse_rezervacije): 
         %if prispelost == 1:
-        <tr class = "is-selected"> <td>{{rezervacija.ime}}</td>   <td>{{rezervacija.stevilo_oseb}}</td> <td>{{rezervacija.datum}}</td> <td>{{miza}}</td>  
+        <tr style="background-color:"> <td>{{rezervacija.ime}}</td>   <td>{{rezervacija.stevilo_oseb}}</td> <td>{{rezervacija.datum}}</td> <td>{{miza}}</td>  
             <td>
                 <form method="POST"  action="/prispelo/{{id_rezervacije}}/">
-                    <button>
-                        <span class="icon-text">
-                            <span class="icon">
-                                <i class="fa-regular fa-circle-check"></i>
-                            </span>
-                            <span>Prispela</span>
-                        </span>
-                    </button>
+                    <button class="button is-small is-round is-info is-light" style="margin-bottom: 5px; margin-top: 5px;"> Prispela </button>
                 </form>
                 <form method="POST"  action="/preklici/{{id_rezervacije}}/">
-                    <button> 
-                        <span class="icon-text">
-                            <span class="icon">
-                                <i class="fa-regular fa-circle-check"></i>
-                            </span>
-                            <span>Prekliči</span>
-                        </span>
-                    </button>
+                    <button class="button is-small is-round is-danger is-light" style="margin-bottom: 5px; margin-top: 5px; "> Prekliči </button>
                 </form>
-            </td>   
+            </td> 
         </tr>
         %else:
         <tr> <td>{{rezervacija.ime}}</td>   <td>{{rezervacija.stevilo_oseb}}</td> <td>{{rezervacija.datum}}</td> <td>{{miza}}</td>  
             <td>
                 <form method="POST"  action="/prispelo/{{id_rezervacije}}/">
-                    <button> Prispela </button>
+                    <button class="button is-small is-round is-info is-light" style="margin-bottom: 5px; margin-top: 5px;"> Prispela </button>
                 </form>
                 <form method="POST"  action="/preklici/{{id_rezervacije}}/">
-                    <button> Prekliči </button>
+                    <button class="button is-small is-round is-danger is-light" style="margin-bottom: 5px; margin-top: 5px;"> Prekliči </button>
                 </form>
             </td>   
         </tr>
