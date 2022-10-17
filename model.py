@@ -150,9 +150,6 @@ class Miza:
         timeline = sorted(self.timeline)
         if timeline == []:
             return "Prosto"
-        print(self.stevilka)
-        print(timeline[0])
-        print(self.timeline[timeline[0]])
         if timeline[0] <= sedaj and self.timeline[timeline[0]] >= sedaj:
             if self.zasedenost:
                 stanje = "Zasedeno"
@@ -167,7 +164,6 @@ class Miza:
         self.timeline.pop(rezervacija.datum)
 
     def naredi_zasedeno_brez_rezervacije(self):
-        print("delam zasedeno")
         zdaj = datetime.datetime.today().replace(microsecond=0)
         if self.timeline == {}:
             konec = zdaj + DOLZINA_REZERVACIJE
@@ -186,10 +182,7 @@ class Miza:
 
     def prosta(self):
         self.zasedenost = False
-        print("delam prosto")
-        print(sorted(self.timeline)[0])
         self.timeline.pop(sorted(self.timeline)[0])
-        print(self.timeline)
 
     def naslednja_rezervacija(self):
         if self.timeline == {}:
