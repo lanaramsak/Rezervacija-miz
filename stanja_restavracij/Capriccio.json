@@ -27,6 +27,14 @@
                 ],
                 "zasedenost": false,
                 "stevilka_mize": 1
+            },
+            {
+                "stevilo_oseb": 4,
+                "lokacija": "Vrt",
+                "timeline": {},
+                "rezerviranost": [],
+                "zasedenost": false,
+                "stevilka_mize": 2
             }
         ],
         "Notranjost": [
@@ -34,7 +42,8 @@
                 "stevilo_oseb": 2,
                 "lokacija": "Notranjost",
                 "timeline": {
-                    "2022-10-21 14:25:00": "2022-10-21 16:25:00"
+                    "2022-10-21 14:25:00": "2022-10-21 16:25:00",
+                    "2022-10-17 10:14:56": "2022-10-17 12:14:56"
                 },
                 "rezerviranost": [
                     {
@@ -52,7 +61,7 @@
                         "opravljenost": true
                     }
                 ],
-                "zasedenost": false,
+                "zasedenost": true,
                 "stevilka_mize": 11
             },
             {

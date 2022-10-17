@@ -9,10 +9,24 @@
         <tr class = "is-selected"> <td>{{rezervacija.ime}}</td>   <td>{{rezervacija.stevilo_oseb}}</td> <td>{{rezervacija.datum}}</td> <td>{{miza}}</td>  
             <td>
                 <form method="POST"  action="/prispelo/{{id_rezervacije}}/">
-                    <button> Prispela </button>
+                    <button>
+                        <span class="icon-text">
+                            <span class="icon">
+                                <i class="fa-regular fa-circle-check"></i>
+                            </span>
+                            <span>Prispela</span>
+                        </span>
+                    </button>
                 </form>
                 <form method="POST"  action="/preklici/{{id_rezervacije}}/">
-                    <button> Prekliči </button>
+                    <button> 
+                        <span class="icon-text">
+                            <span class="icon">
+                                <i class="fa-regular fa-circle-check"></i>
+                            </span>
+                            <span>Prekliči</span>
+                        </span>
+                    </button>
                 </form>
             </td>   
         </tr>

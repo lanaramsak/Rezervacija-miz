@@ -8,6 +8,7 @@
     <!-- Bulma Version 0.9.0-->
     <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
     <link rel="stylesheet" href="showcase.css" />
+    <script src="https://kit.fontawesome.com/d8381f64c2.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
@@ -34,11 +35,7 @@
 
     <div class="section-dark resume" id="prijava">
       <div class="container">
-        <div
-          class="columns is-multiline"
-          data-aos="fade-in"
-          data-aos-easing="linear"
-        >
+        <div>
           <div class="column is-12 about-me">
             <h1 class="title has-text-centered section-title">
               Prijava
