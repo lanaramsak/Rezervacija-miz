@@ -29,7 +29,7 @@
                 </form>
                 <form method="POST" action="/prekliči_rezervacijo/{{st_lokacije}}{{st_miza}}/">
                     <button>
-                        Prekliči
+                        Prekliči rezervacijo
                     </button>
                 </form>
                 </div>
@@ -42,7 +42,7 @@
                     Prosto
                     </button>
                 </form>
-                <form method="POST" action="/brisi_mizo/{{st_lokacije}}{{st_miza}}/"><button class="delete"></button></form>
+                <form method="POST" action="/brisi_mizo/{{st_lokacije}}{{st_miza}}/"><button class="delete is-center"></button></form>
                 </div>
                 %end
             %end

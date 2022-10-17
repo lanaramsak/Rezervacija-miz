@@ -7,7 +7,7 @@
                 "stevilo_oseb": 4,
                 "lokacija": "Vrt",
                 "timeline": {
-                    "2022-10-17 14:07:53": "2022-10-17 16:07:53"
+                    "2022-10-17 14:52:17": "2022-10-17 16:52:17"
                 },
                 "rezerviranost": [
                     {
@@ -106,6 +106,14 @@
                 ],
                 "zasedenost": false,
                 "stevilka_mize": 12
+            },
+            {
+                "stevilo_oseb": 6,
+                "lokacija": "Notranjost",
+                "timeline": {},
+                "rezerviranost": [],
+                "zasedenost": false,
+                "stevilka_mize": 13
             }
         ]
     },

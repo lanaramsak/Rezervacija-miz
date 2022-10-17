@@ -2,7 +2,7 @@
 
 <div class="column is-one-half">
 <table class="table is-bordered is-hoverable"> 
-    <h1 class="tittle is-1">Pregled preteklih rezervacij</h1>
+    <h1 class="tittle is-1 is-spaced">Pregled preteklih rezervacij</h1>
 
     <tr> <th>Rezervacija</th> <th>Število oseb</th> <th>Ura</th> <th>Miza</th>  <th>Opravljenost</th>  </tr>
     %for id_rezervacije, (rezervacija, miza) in enumerate(vse_rezervacije): 
