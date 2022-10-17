@@ -7,20 +7,44 @@
                 "stevilo_oseb": 4,
                 "lokacija": "Vrt",
                 "timeline": {
-                    "2022-10-17 14:52:17": "2022-10-17 16:52:17"
+                    "2022-10-17 14:52:17": "2022-10-17 16:52:17",
+                    "2022-10-17 17:04:07": "2022-10-17 14:52:17",
+                    "2022-10-17 17:04:09": "2022-10-17 14:52:17",
+                    "2022-10-17 17:04:10": "2022-10-17 14:52:17"
                 },
                 "rezerviranost": [
                     {
                         "ime": "Ana",
                         "stevilo_oseb": 4,
-                        "datum": "2022-10-17 14:07:53",
+                        "datum": "2022-8-17 14:07:53",
                         "lokacija": "Vrt",
                         "opravljenost": true
                     },
                     {
                         "ime": "Nika",
                         "stevilo_oseb": 4,
-                        "datum": "2022-10-16 02:28:21",
+                        "datum": "2022-8-16 02:28:21",
+                        "lokacija": "Vrt",
+                        "opravljenost": true
+                    },
+                    {
+                        "ime": "Nik",
+                        "stevilo_oseb": 3,
+                        "datum": "2022-9-17 17:04:10",
+                        "lokacija": "Vrt",
+                        "opravljenost": true
+                    },
+                    {
+                        "ime": "Lan",
+                        "stevilo_oseb": 3,
+                        "datum": "2022-9-17 17:04:09",
+                        "lokacija": "Vrt",
+                        "opravljenost": true
+                    },
+                    {
+                        "ime": "Gal",
+                        "stevilo_oseb": 2,
+                        "datum": "2022-10-17 17:04:07",
                         "lokacija": "Vrt",
                         "opravljenost": true
                     }
@@ -86,7 +110,7 @@
                 "stevilo_oseb": 3,
                 "lokacija": "Notranjost",
                 "timeline": {
-                    "2022-10-30 19:00:00": "2022-10-30 21:00:00"
+                    "2022-10-17 17:04:11": "2022-10-17 19:04:11"
                 },
                 "rezerviranost": [
                     {
@@ -99,12 +123,12 @@
                     {
                         "ime": "Zala",
                         "stevilo_oseb": 2,
-                        "datum": "2022-10-30 19:00:00",
+                        "datum": "2022-10-17 17:04:11",
                         "lokacija": "Notranjost",
-                        "opravljenost": false
+                        "opravljenost": true
                     }
                 ],
-                "zasedenost": false,
+                "zasedenost": true,
                 "stevilka_mize": 12
             },
             {

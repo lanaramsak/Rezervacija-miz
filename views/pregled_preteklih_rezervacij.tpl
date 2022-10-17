@@ -1,6 +1,6 @@
 % rebase('osnova.tpl', ime_strani = "Pregled preteklih rezervacij", menu = True)
 
-<div class="column is-one-half">
+<div class="column">
 <table class="table is-bordered is-hoverable"> 
     <h1 class="tittle is-1 is-spaced">Pregled preteklih rezervacij</h1>
 
@@ -15,4 +15,15 @@
     </tr>
     %end
 </table>
+</div>
+
+<div class="box">
+    <form method="POST">
+        <label for="leto">Razporejenost rezervacij skozi leto:</label>
+        <input type="number" id="leto" name="leto" placeholder= "2022..." >
+        %if napaka:
+        <p class="help is-danger">{{ napaka }}</p>
+        %end
+        <button>Naredi</button>
+    </form>
 </div>

@@ -1,5 +1,7 @@
 import datetime
 import json
+import matplotlib.pyplot as plt
+import numpy as np
 
 DOLZINA_REZERVACIJE = datetime.timedelta(hours = 2)
 PRIDEJO = 1
@@ -72,14 +74,32 @@ class Stanje:
         miza = self.mize[lokacija][miza_st - (miza_st // 10) * 10]
         return miza
 
-    def preverjanje_zasedenosti(self):
-        while True:
-            for miza in self.mize:
-                if list(miza.timeline.keys().sort())[0] <= datetime.datetime.today():
-                    miza.zasedi()
-                if list(miza.timeline.values().sort())[0] <= datetime.datetime.today():
-                    miza.prosta
-                    #kaj če je vmes program zaprt pa poteče rezervacija, zato <=
+    def narisi_graf(self, leto):
+        meseci = ["januar", "februar", "marec", "april", "maj", "junij", "julij", "avgust", "september", "oktober", "november", "december"]
+        gledane_rezervacije = []
+        for rezervacija in self.vse_rezervacije():
+            if rezervacija[0].opravljenost == True and rezervacija[0].datum.year == leto:
+                gledane_rezervacije.append(rezervacija[0])
+                print(gledane_rezervacije)
+        if gledane_rezervacije == []:
+            return "Za izbrano leto ni rezervacij"
+        gledane_rezervacije.sort()
+        zacetni_mesec = gledane_rezervacije[0].datum.month
+        koncni_mesec = gledane_rezervacije[-1].datum.month
+        vrednosti_slovar = {}
+        for rezervacija in gledane_rezervacije:
+            for mesec in range(zacetni_mesec, koncni_mesec + 1):
+                if rezervacija.datum.month == mesec:
+                    vrednosti_slovar[mesec] = vrednosti_slovar.get(mesec, 0) + 1
+                    break
+        vrednosti_seznam = []
+        for mesec in sorted(vrednosti_slovar.keys()):
+            vrednosti_seznam.append(vrednosti_slovar[mesec])
+        x = np.array(meseci[zacetni_mesec - 1 : koncni_mesec])
+        y = np.array(vrednosti_seznam)
+        plt.bar(x,y)
+        plt.savefig(f"pregled_rezervacij{leto}.png")
+        return None
 
     def v_slovar(self):
         mize_spomin = {lokacija: [miza.v_slovar() for miza in self.mize[lokacija]] for lokacija in self.mize.keys()}

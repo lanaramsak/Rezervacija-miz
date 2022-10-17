@@ -116,7 +116,23 @@ def pregled_rezervacij():
         vse_rezervacije = stanje.vse_rezervacije(),
         ime_restavracije = stanje.restavracija,
         vse_lokacije = stanje.lokacije,
+        napaka = None
         )
+
+@bottle.post("/pregled_preteklih_rezervacij/")
+def narisi_graf():
+    stanje = stanje_restavracije()
+    leto = int(bottle.request.forms.getunicode("leto"))
+    print(leto)
+    napaka = stanje.narisi_graf(leto)
+    return bottle.template(    
+        "pregled_preteklih_rezervacij.tpl",     
+        vse_rezervacije = stanje.vse_rezervacije(),
+        ime_restavracije = stanje.restavracija,
+        vse_lokacije = stanje.lokacije,
+        napaka = napaka
+        )
+
 
 @bottle.get("/pregled_miz/")
 def pregled_rezervacij():
