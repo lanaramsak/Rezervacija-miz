@@ -320,8 +320,4 @@ def preklici(st_rezervacije):
     shrani_stanje_trenutnega_uporabnika(stanje)
     return bottle.redirect("/pregled_rezervacij/")
 
-@bottle.error(404)
-def error_404(error):
-    return "Ta stran ne obstaja!"
-
 bottle.run(debug=True, reloader=True)
