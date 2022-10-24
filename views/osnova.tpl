@@ -38,7 +38,7 @@
                 <a class="button is-dark" action="https://github.com/lanaramsak"> 
                     <span class="icon-text">
                         <span class="icon">
-                            <!--<i class="fa-brands fa-github"></i>-->
+                            <i class="fa-brands fa-github"></i>
                         </span>
                         <span>Github</span> 
                     </span>
@@ -47,7 +47,7 @@
                     <button class="button is-link"> 
                         <span class="icon-text">
                             <span class="icon">
-                                <!--<i class="fa-regular fa-right-from-bracket"></i>-->
+                                <i class="fa-regular fa-right-from-bracket"></i>
                             </span>
                             <span>Odjava</span>
                         </span>

@@ -6,7 +6,7 @@
             <div class="box" style="margin-bottom:10px;">
                 <div class="buttons">
             %for st_miza, miza in enumerate(vse_mize[lokacija]):
-                %stevilka_mize = st_lokacije * 100 + st_miza
+                %stevilka_mize = st_lokacije * 100 + st_miza + 1
                 %stanje = miza.preveri_zasedenost()
                 %if stanje == "Zasedeno":
                 <div class="box" style="margin-right: 10px; margin-bottom: 10px; margin-top: 10px;">
@@ -17,7 +17,11 @@
                     Zasedeno
                     </button>
                 </form>
-                <form method="POST" action="/brisi_mizo/{{st_lokacije}}{{st_miza}}/"><button class="delete"></button></form>
+                <div class="level">
+                    <div class="level-item">
+                        <form method="POST" action="/brisi_mizo/{{st_lokacije}}{{st_miza}}/"><button class="delete"></button></form>
+                    </div>
+                </div>
                 </div>
                 %elif stanje == "Rezervacija še prihaja":
                 <div class="box" style="margin-right: 10px; margin-bottom: 10px; margin-top: 10px;">
