@@ -1,0 +1,11 @@
+{
+    "restavracija": "Capriccio",
+    "mize": {
+        "Vrt": [],
+        "Notranjost": []
+    },
+    "lokacije": [
+        "Vrt",
+        "Notranjost"
+    ]
+}

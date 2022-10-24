@@ -6,10 +6,11 @@
             <div class="box" style="margin-bottom:10px;">
                 <div class="buttons">
             %for st_miza, miza in enumerate(vse_mize[lokacija]):
+                %stevilka_mize = st_lokacije * 100 + st_miza
                 %stanje = miza.preveri_zasedenost()
                 %if stanje == "Zasedeno":
                 <div class="box" style="margin-right: 10px; margin-bottom: 10px; margin-top: 10px;">
-                <form method="POST" action="/naredi_prosto/{{st_lokacije}}{{st_miza}}/">
+                <form method="POST" action="/naredi_prosto/{{stevilka_mize}}/">
                     <button class="button is-large is-danger">  
                     {{miza.stevilka}}
                     <br>
@@ -20,14 +21,14 @@
                 </div>
                 %elif stanje == "Rezervacija še prihaja":
                 <div class="box" style="margin-right: 10px; margin-bottom: 10px; margin-top: 10px;">
-                <form method="POST" action="/naredi_prispelo/{{st_lokacije}}{{st_miza}}/">
+                <form method="POST" action="/naredi_prispelo/{{stevilka_mize}}/">
                     <button class="button is-large is-warning">  
                     {{miza.stevilka}}
                     <br>
                     Rezervacija prihaja
                     </button>
                 </form>
-                <form method="POST" action="/prekliči_rezervacijo/{{st_lokacije}}{{st_miza}}/">
+                <form method="POST" action="/prekliči_rezervacijo/{{stevilka_mize}}/">
                     <button>
                         Prekliči rezervacijo
                     </button>
@@ -35,7 +36,7 @@
                 </div>
                 %else:
                 <div class="box" style="margin-right: 10px; margin-bottom: 10px; margin-top: 10px;">
-                <form method="POST" action="/naredi_zasedeno/{{st_lokacije}}{{st_miza}}/">
+                <form method="POST" action="/naredi_zasedeno/{{stevilka_mize}}/">
                     <button class="button is-large is-success">  
                     {{miza.stevilka}} 
                     <br>
@@ -44,7 +45,7 @@
                 </form>
                 <div class="level">
                     <div class="level-item">
-                        <form method="POST" action="/brisi_mizo/{{st_lokacije}}{{st_miza}}/"><button class="delete is-center"></button></form>
+                        <form method="POST" action="/brisi_mizo/{{stevilka_mize}}/"><button class="delete is-center"></button></form>
                     </div>
                     %if miza.naslednja_rezervacija():
                     <div class="level-right text-centered">

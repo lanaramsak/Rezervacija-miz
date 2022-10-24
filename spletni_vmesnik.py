@@ -123,7 +123,6 @@ def pregled_rezervacij():
 def narisi_graf():
     stanje = stanje_restavracije()
     leto = int(bottle.request.forms.getunicode("leto"))
-    print(leto)
     napaka = stanje.narisi_graf(leto)
     return bottle.template(    
         "pregled_preteklih_rezervacij.tpl",     
@@ -191,7 +190,6 @@ def naredi_mizo(ime_lokacije):
     stanje = stanje_restavracije()
     st_oseb = int(bottle.request.forms.getunicode("st_oseb"))
     lokacija = ime_lokacije
-    print(lokacija)
     miza = Miza(st_oseb, lokacija)
     stanje.dodaj_mizo(miza)
     shrani_stanje_trenutnega_uporabnika(stanje)
@@ -232,10 +230,8 @@ def naredi_zasedeno(katera_miza):
 
 @bottle.post("/brisi_mizo/<katera_miza:int>/")
 def brisi_mizo(katera_miza):
-    print(katera_miza)
     stanje = stanje_restavracije()
     miza = stanje.najdi_mizo(katera_miza)
-    print(miza.stevilka)
     stanje.mize[miza.lokacija].remove(miza)
     shrani_stanje_trenutnega_uporabnika(stanje)
     return bottle.redirect("/pregled_miz/")
@@ -303,7 +299,7 @@ def izbrisi_lokacijo(lokacija):
 def prispelo(st_rezervacije):
     stanje = stanje_restavracije()
     rezervacija = stanje.zbirka_rezervacij()[st_rezervacije][0]
-    miza_st = stanje.zbirka_rezervacij()[st_rezervacije][1] - 1
+    miza_st = stanje.zbirka_rezervacij()[st_rezervacije][1]
     miza = stanje.najdi_mizo(miza_st)
     miza.naredi_zasedeno(rezervacija)
     shrani_stanje_trenutnega_uporabnika(stanje)

@@ -36,9 +36,9 @@ class Stanje:
         return False
     
     def dodaj_mizo(self, miza):
-        desetice = self.lokacije.index(miza.lokacija)
+        stotice = self.lokacije.index(miza.lokacija)
         stevilo = len(self.mize[miza.lokacija]) + 1
-        miza.stevilka = desetice * 10 + stevilo
+        miza.stevilka = stotice * 100 + stevilo
         self.mize[miza.lokacija] = self.mize.get(miza.lokacija) + [miza]
 
     def dodaj_lokacijo(self, lokacija):
@@ -69,8 +69,8 @@ class Stanje:
     
     
     def najdi_mizo(self, miza_st):
-        lokacija = self.lokacije[miza_st // 10]
-        miza = self.mize[lokacija][miza_st - (miza_st // 10) * 10]
+        lokacija = self.lokacije[miza_st // 100]
+        miza = self.mize[lokacija][miza_st - (miza_st // 100) * 100 - 1]
         return miza
 
     def narisi_graf(self, leto):
@@ -79,7 +79,6 @@ class Stanje:
         for rezervacija in self.vse_rezervacije():
             if rezervacija[0].opravljenost == True and rezervacija[0].datum.year == leto:
                 gledane_rezervacije.append(rezervacija[0])
-                print(gledane_rezervacije)
         if gledane_rezervacije == []:
             return "Za izbrano leto ni rezervacij"
         gledane_rezervacije.sort()
@@ -161,7 +160,6 @@ class Miza:
     def naslednja_rezervacija(self):
         if self.rezerviranost == []:
             return None
-        print(sorted(self.rezerviranost)[0].datum)
         dva = sorted(self.rezerviranost)[0].datum.date()
         ena = datetime.datetime.now().date()
         if dva == ena:
