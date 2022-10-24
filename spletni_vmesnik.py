@@ -1,4 +1,5 @@
 import bottle
+from bottle import static_file
 import json
 import bcrypt
 import datetime
@@ -22,8 +23,6 @@ def stanje_restavracije():
     ime_restavracije = bottle.request.get_cookie("ime_restavracije", secret=SIFRIRNI_KLJUC)
     if ime_restavracije == None:
         return bottle.redirect("/")
-    # else:
-    #     uporabnisko_ime = uporabnisko_ime
     ime_datoteke = ime_uporabnikove_datoteke(ime_restavracije)
     try:
         stanje = Stanje.preberi_iz_datoteke(ime_datoteke)
@@ -37,6 +36,11 @@ def shrani_stanje_trenutnega_uporabnika(stanje):
     ime_restavracije = bottle.request.get_cookie("ime_restavracije", secret=SIFRIRNI_KLJUC)
     ime_datoteke = ime_uporabnikove_datoteke(ime_restavracije)
     stanje.shrani_v_datoteko(ime_datoteke)
+
+@bottle.route('/static/<filename>')
+def server_static(filename):
+    return static_file(filename, root='static/')
+
 
 @bottle.post("/prijava/")
 def prijava_post():
@@ -315,5 +319,9 @@ def preklici(st_rezervacije):
     miza.odstrani_rezervacijo(rezervacija)
     shrani_stanje_trenutnega_uporabnika(stanje)
     return bottle.redirect("/pregled_rezervacij/")
+
+@bottle.error(404)
+def error_404(error):
+    return "Ta stran ne obstaja!"
 
 bottle.run(debug=True, reloader=True)

@@ -1,31 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Zacetna stran</title>
-    <!-- Bulma Version 0.9.0-->
     <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
-    <link rel="stylesheet" href="showcase.css" />
     <script src="https://kit.fontawesome.com/d8381f64c2.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
-
-    <!-- Begin Header -->
     <div class="header-wrapper">
-      <!-- Begin Hero -->
       <section class="hero" style="background-color:#8ebff0;">
-        <!-- Begin Hero Content-->
         <div class="hero-body">
           <div class="container">
             <div class="level">
-              <div class="level-element">
-                <h1 class="subtitle"><i class="fa-solid fa-table-list"></i></h1>
+              <div class="level-item">
+                <div class="image">
+                  <img src="/static/Nella.png" />
+                </div>
               </div>
               <div class="level-item">
-                <h2 class="title is-large">Nella</h2>
+                <h2 class="title is-1 is-spaced" style="color:white;">NELLA</h2>
               </div>
               <div class="level-item">
                 <h1 class="subtitle profession">Organizacija rezervacij še nikoli ni bila tako preprosta.</h1>
@@ -33,11 +29,8 @@
             </div>
           </div>
         </div>
-        <!-- End Hero Content-->
       </section>
-      <!-- End Hero -->
     </div>
-    <!-- End Header -->
     
     <section class="hero is-fullheight">
       <div class="hero-body">

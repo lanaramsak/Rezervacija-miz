@@ -29,7 +29,12 @@
   <div class="container">
     <div id="navMenu" class="navbar-menu">
         <div class="navbar-brand">
-            <h1 class="title is-large is-white">NELLA</h1>
+            <figure class="image is-64x64">
+                <img src="/static/Nella.png" />
+            </figure>
+        </div>
+        <div class="navbar-start">
+            <h2 class="title is-1 is-spaced" style="color:white; margin-left: 2cm;">NELLA</h2>
         </div>
 
         <div class="navbar-end">
