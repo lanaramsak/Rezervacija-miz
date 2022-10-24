@@ -1,14 +1,12 @@
 {
     "restavracija": "Capriccio",
-    "geslo": "geslo",
     "mize": {
         "Vrt": [
             {
                 "stevilo_oseb": 4,
                 "lokacija": "Vrt",
                 "timeline": {
-                    "2022-10-22 03:14:23": "2022-10-22 05:14:23",
-                    "2022-10-24 15:49:00": "2022-10-24 17:49:00"
+                    "2022-10-24 21:18:23": "2022-10-24 23:18:23"
                 },
                 "rezerviranost": [
                     {
@@ -49,9 +47,9 @@
                     {
                         "ime": "Lana",
                         "stevilo_oseb": 4,
-                        "datum": "2022-10-24 15:49:00",
+                        "datum": "2022-10-24 21:14:25",
                         "lokacija": "Vrt",
-                        "opravljenost": false
+                        "opravljenost": true
                     }
                 ],
                 "zasedenost": true,
@@ -60,16 +58,14 @@
             {
                 "stevilo_oseb": 4,
                 "lokacija": "Vrt",
-                "timeline": {
-                    "2022-10-21 22:10:28": "2022-10-21 00:00:00"
-                },
+                "timeline": {},
                 "rezerviranost": [
                     {
                         "ime": "Nika",
                         "stevilo_oseb": 4,
-                        "datum": "2022-10-21 22:10:28",
+                        "datum": "2022-10-24 21:14:24",
                         "lokacija": "Vrt",
-                        "opravljenost": false
+                        "opravljenost": true
                     },
                     {
                         "ime": "Gal",
@@ -87,16 +83,14 @@
             {
                 "stevilo_oseb": 2,
                 "lokacija": "Notranjost",
-                "timeline": {
-                    "2022-10-21 14:25:00": "2022-10-21 16:25:00"
-                },
+                "timeline": {},
                 "rezerviranost": [
                     {
                         "ime": "Carlos",
                         "stevilo_oseb": 2,
-                        "datum": "2022-10-21 14:25:00",
+                        "datum": "2022-10-24 21:14:23",
                         "lokacija": "Notranjost",
-                        "opravljenost": false
+                        "opravljenost": true
                     },
                     {
                         "ime": "Lana",
@@ -113,7 +107,7 @@
                         "opravljenost": true
                     }
                 ],
-                "zasedenost": false,
+                "zasedenost": true,
                 "stevilka_mize": 11
             },
             {
@@ -136,7 +130,7 @@
                         "opravljenost": true
                     }
                 ],
-                "zasedenost": true,
+                "zasedenost": false,
                 "stevilka_mize": 12
             },
             {

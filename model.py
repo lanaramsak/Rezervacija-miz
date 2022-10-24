@@ -9,9 +9,8 @@ BI_MORALI_BITI = 0
 
 
 class Stanje:
-    def __init__(self, restavracija, geslo, mize={}, lokacije=[]):
+    def __init__(self, restavracija, mize={}, lokacije=[]):
         self.restavracija = restavracija
-        self.geslo = geslo
         self.mize = mize
         self.lokacije = lokacije
 
@@ -103,7 +102,7 @@ class Stanje:
 
     def v_slovar(self):
         mize_spomin = {lokacija: [miza.v_slovar() for miza in self.mize[lokacija]] for lokacija in self.mize.keys()}
-        return {"restavracija" : self.restavracija, "geslo" : self.geslo, "mize" : mize_spomin, "lokacije" : self.lokacije}
+        return {"restavracija" : self.restavracija, "mize" : mize_spomin, "lokacije" : self.lokacije}
 
     def shrani_v_datoteko(self, ime_datoteke):
         with open(ime_datoteke, "w") as dat:
@@ -117,7 +116,7 @@ class Stanje:
             slovar_miz[lokacija] = []
             for miza in slovar["mize"][lokacija]:
                 slovar_miz[lokacija].append(Miza.iz_slovarja_miza(miza))
-        return Stanje(slovar["restavracija"], slovar["geslo"], slovar_miz, slovar["lokacije"])
+        return Stanje(slovar["restavracija"], slovar_miz, slovar["lokacije"])
 
     @staticmethod
     def preberi_iz_datoteke(ime_datoteke):
