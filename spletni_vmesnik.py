@@ -1,6 +1,6 @@
-from sys import maxsize
 import bottle
 import json
+import bcrypt
 import datetime
 from model import Stanje, Miza, Rezervacija
 
@@ -42,9 +42,9 @@ def shrani_stanje_trenutnega_uporabnika(stanje):
 def prijava_post():
     uporabniki = poglej_za_osebe()
     ime_restavracije = bottle.request.forms.getunicode("ime_restavracije")
-    geslo = bottle.request.forms.getunicode("geslo")
+    geslo = bytes(bottle.request.forms.getunicode("geslo"), "utf-8" )
     if ime_restavracije in list(uporabniki.keys()):
-        if uporabniki[ime_restavracije] == geslo:
+        if bcrypt.checkpw(geslo, bytes(uporabniki[ime_restavracije], "utf-8")):
             bottle.response.set_cookie("ime_restavracije", ime_restavracije, path="/", secret=SIFRIRNI_KLJUC)
             bottle.redirect("/pregled_miz/")
         else:
@@ -69,7 +69,8 @@ def registracija():
 @bottle.post("/registracija/")
 def registracija_post():
     ime_restavracije = bottle.request.forms.getunicode("ime_restavracije")
-    geslo = bottle.request.forms.getunicode("geslo")
+    geslo = bytes(bottle.request.forms.getunicode("geslo"), "utf-8")
+    kodirano_geslo = bcrypt.hashpw(geslo, bcrypt.gensalt())
     uporabniki = poglej_za_osebe()
     if ime_restavracije in list(uporabniki.keys()):
         return bottle.template(
@@ -79,7 +80,7 @@ def registracija_post():
     else:
         bottle.response.set_cookie("ime_restavracije", ime_restavracije, path="/", secret=SIFRIRNI_KLJUC)
         uporabniki = poglej_za_osebe()
-        uporabniki[ime_restavracije] = geslo
+        uporabniki[ime_restavracije] = kodirano_geslo.decode("utf-8")
         shrani_med_osebe(uporabniki)
 
         return bottle.redirect("/pregled_miz/")
