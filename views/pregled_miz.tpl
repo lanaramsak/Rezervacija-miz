@@ -42,7 +42,19 @@
                     Prosto
                     </button>
                 </form>
-                <form method="POST" action="/brisi_mizo/{{st_lokacije}}{{st_miza}}/"><button class="delete is-center"></button></form>
+                <div class="level">
+                    <div class="level-item">
+                        <form method="POST" action="/brisi_mizo/{{st_lokacije}}{{st_miza}}/"><button class="delete is-center"></button></form>
+                    </div>
+                    %if miza.naslednja_rezervacija():
+                    <div class="level-right text-centered">
+                        <div class="level-item">
+                                Nalsednja rezervacija: <br>
+                                {{miza.naslednja_rezervacija()}}
+                        </div>
+                    </div>
+                    %end
+                </div>
                 </div>
                 %end
             %end

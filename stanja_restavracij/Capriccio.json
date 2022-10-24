@@ -6,7 +6,10 @@
             {
                 "stevilo_oseb": 4,
                 "lokacija": "Vrt",
-                "timeline": {},
+                "timeline": {
+                    "2022-10-22 03:14:23": "2022-10-22 05:14:23",
+                    "2022-10-24 15:49:00": "2022-10-24 17:49:00"
+                },
                 "rezerviranost": [
                     {
                         "ime": "Ana",
@@ -42,6 +45,13 @@
                         "datum": "2022-10-17 17:04:07",
                         "lokacija": "Vrt",
                         "opravljenost": true
+                    },
+                    {
+                        "ime": "Lana",
+                        "stevilo_oseb": 4,
+                        "datum": "2022-10-24 15:49:00",
+                        "lokacija": "Vrt",
+                        "opravljenost": false
                     }
                 ],
                 "zasedenost": true,
@@ -51,18 +61,25 @@
                 "stevilo_oseb": 4,
                 "lokacija": "Vrt",
                 "timeline": {
-                    "2022-10-17 23:10:28": "2022-10-17 16:00:00"
+                    "2022-10-21 22:10:28": "2022-10-21 00:00:00"
                 },
                 "rezerviranost": [
                     {
                         "ime": "Nika",
                         "stevilo_oseb": 4,
-                        "datum": "2022-10-17 23:10:28",
+                        "datum": "2022-10-21 22:10:28",
+                        "lokacija": "Vrt",
+                        "opravljenost": false
+                    },
+                    {
+                        "ime": "Gal",
+                        "stevilo_oseb": 4,
+                        "datum": "2022-10-20 23:00:50",
                         "lokacija": "Vrt",
                         "opravljenost": true
                     }
                 ],
-                "zasedenost": true,
+                "zasedenost": false,
                 "stevilka_mize": 2
             }
         ],
@@ -87,9 +104,16 @@
                         "datum": "2022-10-16 02:28:31",
                         "lokacija": "Notranjost",
                         "opravljenost": true
+                    },
+                    {
+                        "ime": "Nik",
+                        "stevilo_oseb": 2,
+                        "datum": "2022-10-20 23:20:51",
+                        "lokacija": "Notranjost",
+                        "opravljenost": true
                     }
                 ],
-                "zasedenost": true,
+                "zasedenost": false,
                 "stevilka_mize": 11
             },
             {
@@ -122,6 +146,14 @@
                 "rezerviranost": [],
                 "zasedenost": false,
                 "stevilka_mize": 13
+            },
+            {
+                "stevilo_oseb": 3,
+                "lokacija": "Notranjost",
+                "timeline": {},
+                "rezerviranost": [],
+                "zasedenost": false,
+                "stevilka_mize": 14
             }
         ]
     },

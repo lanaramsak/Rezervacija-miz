@@ -158,6 +158,17 @@ class Miza:
         else:
             stanje = "Prosto"
         return stanje
+
+    def naslednja_rezervacija(self):
+        if self.rezerviranost == []:
+            return None
+        print(sorted(self.rezerviranost)[0].datum)
+        dva = sorted(self.rezerviranost)[0].datum.date()
+        ena = datetime.datetime.now().date()
+        if dva == ena:
+            return sorted(self.rezerviranost)[0].datum.time()
+        else:
+            return None
     
     def odstrani_rezervacijo(self, rezervacija):
         self.rezerviranost.remove(rezervacija)
@@ -184,11 +195,12 @@ class Miza:
         self.zasedenost = False
         self.timeline.pop(sorted(self.timeline)[0])
 
-    def naslednja_rezervacija(self):
-        if self.timeline == {}:
-            return "Ni prihajajočih rezervacij"
-        else:
-            return f"Naslednja rezervacija je ob {self.timeline[0].__str__()}"
+    def najdi_rezervacijo(self):
+        datum = sorted(self.timeline.keys())[0]
+        for rezervacija in self.rezerviranost:
+            if rezervacija.opravljenost == False and rezervacija.datum == datum:
+                return rezervacija
+        return None
 
     def v_slovar(self):
         rezerviranost_spomin = [rezervacija.v_slovar() for rezervacija in self.rezerviranost]

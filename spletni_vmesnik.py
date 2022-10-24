@@ -206,15 +206,16 @@ def naredi_prosto(katera_miza):
     return bottle.redirect("/pregled_miz/")
 
 @bottle.post("/naredi_prispelo/<katera_miza:int>/")
-def naredi_zasedeno(katera_miza):
+def naredi_prispelo(katera_miza):
     stanje = stanje_restavracije()
     miza = stanje.najdi_mizo(katera_miza)
-    miza.naredi_zasedeno()
+    rezervacija = miza.najdi_rezervacijo()
+    miza.naredi_zasedeno(rezervacija)
     shrani_stanje_trenutnega_uporabnika(stanje)
     return bottle.redirect("/pregled_miz/")
 
 @bottle.post("/prekliči_rezervacijo/<katera_miza:int>/")
-def naredi_zasedeno(katera_miza):
+def prekliči_rezervacijo(katera_miza):
     stanje = stanje_restavracije()
     miza = stanje.najdi_mizo(katera_miza)
     miza.odstrani_rezervacijo(miza.rezerviranost[0])
